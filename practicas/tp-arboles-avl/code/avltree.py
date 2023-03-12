@@ -574,7 +574,34 @@ Entrada: El árbol binario de tipo AVL  sobre el cual se quiere operar.
 Salida: Un árbol binario de búsqueda balanceado. Es decir luego de esta operación se cumple que la altura (h) de su subárbol derecho e izquierdo difieren a lo sumo en una unidad.
 
 """
+def recorrerBf(AVLNode):
+  if (abs(AVLNode.bf) != 1) or (AVLNode.bf != 0):
+    return AVLNode
+  if (AVLNode == None):
+    return None
+  
+  left = recorrerBf(AVLNode.leftnode)
+  if left != None:
+    return left
+  right = recorrerBf(AVLNode.rightnode)
+  if right != None:
+    return right
+  return None
 
 def reBalance(AVLTree):
   AVLTree = calculateBalance(AVLTree)
+  bfVerification = recorrerBf
+  if bfVerification != None:
+    reBalanceR(bfVerification)
+    reBalance(AVLTree)
+  else:
+    return AVLTree
   
+
+def reBalanceR(AVLNode):
+  if (AVLNode.bf < -1):
+    rotateLeft(AVLNode)
+  else:
+    if (AVLNode.bf > 1):
+      rotateRight(AVLNode)
+
