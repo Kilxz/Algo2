@@ -479,6 +479,8 @@ def rotateLeft(Tree, avlnode):
     if Tree.root.leftnode != None:
       avlnode.rightnode = Tree.root.leftnode
       Tree.root.leftnode.parent = avlnode
+    else:
+      avlnode.rightnode = None
     Tree.root.leftnode = avlnode
     avlnode.parent = Tree.root
     return Tree.root
@@ -500,6 +502,8 @@ def rotateLeft(Tree, avlnode):
   if newRoot.leftnode != None:
     avlnode.rightnode = newRoot.leftnode
     newRoot.leftnode.parent = avlnode
+  else:
+    avlnode.rightnode = None
   newRoot.leftnode = avlnode
   avlnode.parent = newRoot
   return newRoot
@@ -518,6 +522,8 @@ def rotateRight(Tree, avlnode):
     if Tree.root.rightnode != None:
       avlnode.leftnode = Tree.root.rightnode
       Tree.root.rightnode.parent = avlnode
+    else:
+      avlnode.leftnode = None
     Tree.root.rightnode = avlnode
     avlnode.parent = Tree.root
     return Tree.root
@@ -539,6 +545,9 @@ def rotateRight(Tree, avlnode):
   if newRoot.rightnode != None:
     avlnode.leftnode = newRoot.rightnode
     newRoot.rightnode.parent = avlnode
+  else:
+    avlnode.leftnode = None
+    print("a")
   newRoot.rightnode = avlnode
   avlnode.parent = newRoot
   return newRoot
@@ -561,8 +570,8 @@ def calculateBalanceR(AVLTree, AVLNode):
   
   AVLNode.bf = height(AVLNode.leftnode) - height(AVLNode.rightnode)
 
-  calculateBalanceR(AVLNode.leftnode)
-  calculateBalanceR(AVLNode.rightnode)
+  calculateBalanceR(AVLTree, AVLNode.leftnode)
+  calculateBalanceR(AVLTree, AVLNode.rightnode)
   return AVLTree
 
 
@@ -575,10 +584,13 @@ Salida: Un árbol binario de búsqueda balanceado. Es decir luego de esta operac
 
 """
 def recorrerBf(AVLNode):
-  if (abs(AVLNode.bf) != 1) or (AVLNode.bf != 0):
-    return AVLNode
+  
   if (AVLNode == None):
     return None
+  
+  if (abs(AVLNode.bf) != 1) and (AVLNode.bf != 0):
+    return AVLNode
+
   
   left = recorrerBf(AVLNode.leftnode)
   if left != None:
@@ -588,20 +600,162 @@ def recorrerBf(AVLNode):
     return right
   return None
 
+def reBalanceR(AVLTree, AVLNode):
+  if (AVLNode.bf < -1):
+    rotateLeft(AVLTree, AVLNode)
+  else:
+    if (AVLNode.bf > 1):
+      rotateRight(AVLTree, AVLNode)
+      
 def reBalance(AVLTree):
   AVLTree = calculateBalance(AVLTree)
-  bfVerification = recorrerBf
+  bfVerification = recorrerBf(AVLTree.root)
   if bfVerification != None:
-    reBalanceR(bfVerification)
+    reBalanceR(AVLTree, bfVerification)
     reBalance(AVLTree)
   else:
     return AVLTree
   
+"""
+Implementar la operación insert() en  el módulo avltree.py garantizando que el árbol 
+binario resultante sea un árbol AVL. 
 
-def reBalanceR(AVLNode):
-  if (AVLNode.bf < -1):
-    rotateLeft(AVLNode)
+ 
+def insertR(newNode, currentNode):
+  if newNode.key > currentNode.key:
+    if currentNode.rightnode == None:
+      currentNode.rightnode = newNode
+      newNode.parent = currentNode
+      return newNode.key
+    currentNode = currentNode.rightnode
+    return insertR(newNode, currentNode)
+  elif newNode.key < currentNode.key:
+    if currentNode.leftnode == None:
+      currentNode.leftnode = newNode
+      newNode.parent = currentNode
+      return newNode.key
+    currentNode = currentNode.leftnode
+    return insertR(newNode, currentNode)
   else:
-    if (AVLNode.bf > 1):
-      rotateRight(AVLNode)
+    return None
+    
+def insert(AVLTree, element, key):
+  newNode = AVLNode()
+  newNode.value = element
+  newNode.key = key
 
+  if AVLTree.root != None:
+    key = insertR(newNode, AVLTree.root)
+  else:
+    AVLTree.root = newNode
+  
+  if key != None:
+    reBalance(AVLTree)
+  return key
+
+Implementar la operación delete() en  el módulo avltree.py garantizando que el árbol 
+binario resultante sea un árbol AVL.
+"""
+
+#Searchforelement y searchforminor buscan nodos utilizando recursividad que luego seran utilizados en la función delete
+def searchforelement(currentNode, element):
+  
+  if currentNode == None:
+    return None
+    
+  if currentNode.value == element:
+    return currentNode
+    
+  left = (searchforelement(currentNode.leftnode, element))
+  if left != None:
+    return left
+
+  right = (searchforelement(currentNode.rightnode, element))
+  if right != None:
+    return right
+
+def searchforminor(currentNode):
+  if currentNode.leftnode == None:
+    if currentNode.rightnode != None:
+      if currentNode.parent.leftnode == currentNode:
+        currentNode.parent.leftnode = currentNode.rightnode
+      else:
+        currentNode.parent.leftnode = currentNode.rightnode
+    else:
+      if currentNode.parent.leftnode == currentNode:
+        currentNode.parent.leftnode = None
+      else:
+        currentNode.parent.rightnode = None
+    return currentNode
+  else:
+    return searchforminor(currentNode.leftnode)
+    
+def delete(AVLTree, element):
+  node = searchforelement(AVLTree.root, element)
+  if node != None:
+    
+    if (node.rightnode != None) and (node.leftnode != None):
+      minornode= searchforminor(node.rightnode)
+      if AVLTree.root == node:
+        
+        minornode.parent = None
+        minornode.leftnode = AVLTree.root.leftnode
+        minornode.rightnode = AVLTree.root.rightnode
+        if minornode.rightnode != None:
+          minornode.rightnode.parent = minornode
+        if minornode.leftnode != None:
+          minornode.leftnode.parent = minornode
+        AVLTree.root = minornode
+
+      else:
+        if node.parent.rightnode == node:
+          node.parent.rightnode = minornode
+        if node.parent.leftnode == node:
+          node.parent.leftnode = minornode
+        minornode.parent = node.parent
+        minornode.leftnode = node.leftnode
+        minornode.rightnode = node.rightnode
+        if node.leftnode != None:
+          node.leftnode.parent = minornode
+        if node.rightnode != None:
+          node.rightnode.parent = minornode
+        
+    elif (node.rightnode == None) and (node.leftnode == None):
+
+      if AVLTree.root == node:
+        AVLTree.root = None
+      else:
+        
+        if node.parent.leftnode == node:
+          node.parent.leftnode = None
+        else:
+          node.parent.rightnode = None
+
+    elif (node.rightnode == None) or (node.leftnode == None):
+      if AVLTree.root == node:
+        if AVLTree.root.rightnode != None:
+          AVLTree.root = AVLTree.root.rightnode
+          AVLTree.root.parent = None
+        else:
+          AVLTree.root = AVLTree.root.leftnode
+          AVLTree.root.parent = None
+      else:
+        
+        if node.parent.rightnode == node:
+          if node.rightnode != None:
+            node.parent.rightnode = node.rightnode
+            node.parent.rightnode.parent = node.parent
+          else:
+            node.parent.rightnode = node.leftnode
+            node.parent.rightnode.parent = node.parent
+        else:
+          if node.rightnode != None:
+            node.parent.leftnode = node.rightnode
+            node.parent.leftnode.parent = node.parent
+          else:
+            node.parent.leftnode = node.leftnode
+            node.parent.leftnode.parent = node.parent
+    reBalance(AVLTree)
+    return node.key
+  else:
+    return None

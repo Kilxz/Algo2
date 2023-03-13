@@ -1,4 +1,3 @@
-from algo1 import *
 
 class LinkedList:
   head = None
