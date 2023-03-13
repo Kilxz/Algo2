@@ -42,9 +42,9 @@ def searchR(currentNode, element):
     return right
     
   """
-insert(B,element,key)
+insertAVL(B,element,key)
 Descripción: Inserta un elemento con una clave determinada del TAD
-árbol binario.
+árbol binario. SIN MANTENER EL BALANCEO (PARA ESO UTILIZAR INSERT NORMAL).
 Entrada: el árbol B sobre el cual se quiere realizar la inserción, el valor del elemento (element) a insertar y la clave
 (key) con la que se lo quiere insertar.
 Salida: Si pudo insertar con éxito devuelve la key donde se inserta el
@@ -69,7 +69,7 @@ def insertR(newNode, currentNode):
   else:
     return None
     
-def insert(B, element, key):
+def insertAVL(B, element, key):
   newNode = AVLNode()
   newNode.value = element
   newNode.key = key
@@ -81,8 +81,8 @@ def insert(B, element, key):
     return key
     
 """
-delete(B,element)
-Descripción: Elimina un elemento del TAD árbol binario.
+deleteAVL(B,element)
+Descripción: Elimina un elemento del TAD árbol binario. SIN MANTENER EL BALANCEO (PARA ESO UTILIZAR DELETE NORMAL).
 Poscondición: Se debe desvincular el Node a eliminar.
 Entrada: el árbol binario B sobre el cual se quiere realizar la
 eliminación y el valor del elemento (element) a eliminar.
@@ -123,7 +123,7 @@ def searchforminor(currentNode):
   else:
     return searchforminor(currentNode.leftnode)
     
-def delete(B, element):
+def deleteAVL(B, element):
   node = searchforelement(B.root, element)
   if node != None:
     
@@ -547,7 +547,6 @@ def rotateRight(Tree, avlnode):
     newRoot.rightnode.parent = avlnode
   else:
     avlnode.leftnode = None
-    print("a")
   newRoot.rightnode = avlnode
   avlnode.parent = newRoot
   return newRoot
@@ -602,10 +601,17 @@ def recorrerBf(AVLNode):
 
 def reBalanceR(AVLTree, AVLNode):
   if (AVLNode.bf < -1):
+    if AVLNode.rightnode != None:
+      if AVLNode.rightnode.bf > 0:
+        rotateRight(AVLTree, AVLNode.rightnode)
     rotateLeft(AVLTree, AVLNode)
   else:
     if (AVLNode.bf > 1):
+      if AVLNode.leftnode != None:
+        if AVLNode.leftnode.bf < 0:
+          rotateLeft(AVLTree, AVLNode.rightnode)
       rotateRight(AVLTree, AVLNode)
+  return AVLTree
       
 def reBalance(AVLTree):
   AVLTree = calculateBalance(AVLTree)
@@ -613,13 +619,14 @@ def reBalance(AVLTree):
   if bfVerification != None:
     reBalanceR(AVLTree, bfVerification)
     reBalance(AVLTree)
-  else:
-    return AVLTree
+  return AVLTree
+
   
+#EJERCICIO 4
 """
 Implementar la operación insert() en  el módulo avltree.py garantizando que el árbol 
 binario resultante sea un árbol AVL. 
-
+"""
  
 def insertR(newNode, currentNode):
   if newNode.key > currentNode.key:
@@ -653,10 +660,11 @@ def insert(AVLTree, element, key):
     reBalance(AVLTree)
   return key
 
+#EJERCICIO 5
+"""
 Implementar la operación delete() en  el módulo avltree.py garantizando que el árbol 
 binario resultante sea un árbol AVL.
 """
-
 #Searchforelement y searchforminor buscan nodos utilizando recursividad que luego seran utilizados en la función delete
 def searchforelement(currentNode, element):
   
