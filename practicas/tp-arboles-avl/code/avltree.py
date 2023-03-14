@@ -465,6 +465,14 @@ def height(currentNode):
       return Rheight + 1
     
 #TP 2 DE ALGORITMOS 2 
+
+def update_bf(AVLTree, currentNode):
+  currentNode.bf = height(AVLNode.leftnode) - height(AVLNode.rightnode)
+  if currentNode.bf == AVLTree.root:
+    return AVLTree
+  else:
+    update_bf(AVLTree, currentNode.parent)
+
 """
 Descripción: Implementa la operación rotación a la izquierda 
 Entrada: Un Tree junto a un AVLnode sobre el cual se va a operar la rotación a la  izquierda
@@ -621,13 +629,32 @@ def reBalance(AVLTree):
     reBalance(AVLTree)
   return AVLTree
 
-  
+
 #EJERCICIO 4
 """
 Implementar la operación insert() en  el módulo avltree.py garantizando que el árbol 
 binario resultante sea un árbol AVL. 
 """
- 
+def updateBfAndFix(AVLTree, AVLNode):
+  AVLNode.bf = height(AVLNode.leftnode) - height(AVLNode.rightnode)
+
+  if (AVLNode.bf < -1):
+    if AVLNode.rightnode != None:
+      if AVLNode.rightnode.bf > 0:
+        rotateRight(AVLTree, AVLNode.rightnode)
+    rotateLeft(AVLTree, AVLNode)
+  else:
+    if (AVLNode.bf > 1):
+      if AVLNode.leftnode != None:
+        if AVLNode.leftnode.bf < 0:
+          rotateLeft(AVLTree, AVLNode.rightnode)
+      rotateRight(AVLTree, AVLNode)
+
+  if AVLNode == AVLTree.root:
+    return AVLTree
+  else:
+    updateBfAndFix(AVLTree, AVLNode.parent)
+
 def insertR(newNode, currentNode):
   if newNode.key > currentNode.key:
     if currentNode.rightnode == None:
@@ -657,7 +684,7 @@ def insert(AVLTree, element, key):
     AVLTree.root = newNode
   
   if key != None:
-    reBalance(AVLTree)
+    updateBfAndFix(AVLTree, newNode)
   return key
 
 #EJERCICIO 5
