@@ -466,6 +466,9 @@ def height(currentNode):
     
 #TP 2 DE ALGORITMOS 2 
 
+"""
+Descripción: Actualiza los bf de los nodos a partir de un nodo, hasta la raíz del árbol.
+"""
 def update_bf(AVLTree, currentNode):
   currentNode.bf = height(AVLNode.leftnode) - height(AVLNode.rightnode)
   if currentNode.bf == AVLTree.root:
@@ -567,6 +570,7 @@ Entrada: El árbol AVL  sobre el cual se quiere operar.
 Salida: El árbol AVL con el valor de balanceFactor para cada subarbol
 
 """
+#Ejercicio 3
 
 def calculateBalance(AVLTree):
   return calculateBalanceR(AVLTree, AVLTree.root)
@@ -581,8 +585,6 @@ def calculateBalanceR(AVLTree, AVLNode):
   calculateBalanceR(AVLTree, AVLNode.rightnode)
   return AVLTree
 
-
-#Ejercicio 3
 """
 reBalance(AVLTree) 
 Descripción: balancea un árbol binario de búsqueda. Para esto se deberá primero calcular el balanceFactor del árbol y luego en función de esto aplicar la estrategia de rotación que corresponda.
@@ -590,6 +592,7 @@ Entrada: El árbol binario de tipo AVL  sobre el cual se quiere operar.
 Salida: Un árbol binario de búsqueda balanceado. Es decir luego de esta operación se cumple que la altura (h) de su subárbol derecho e izquierdo difieren a lo sumo en una unidad.
 
 """
+
 def recorrerBf(AVLNode):
   
   if (AVLNode == None):
@@ -617,7 +620,7 @@ def reBalanceR(AVLTree, AVLNode):
     if (AVLNode.bf > 1):
       if AVLNode.leftnode != None:
         if AVLNode.leftnode.bf < 0:
-          rotateLeft(AVLTree, AVLNode.rightnode)
+          rotateLeft(AVLTree, AVLNode.leftnode)
       rotateRight(AVLTree, AVLNode)
   return AVLTree
       
@@ -647,13 +650,14 @@ def updateBfAndFix(AVLTree, AVLNode):
     if (AVLNode.bf > 1):
       if AVLNode.leftnode != None:
         if AVLNode.leftnode.bf < 0:
-          rotateLeft(AVLTree, AVLNode.rightnode)
+          rotateLeft(AVLTree, AVLNode.leftnode)
       rotateRight(AVLTree, AVLNode)
 
   if AVLNode == AVLTree.root:
     return AVLTree
   else:
     updateBfAndFix(AVLTree, AVLNode.parent)
+  return AVLTree
 
 def insertR(newNode, currentNode):
   if newNode.key > currentNode.key:
@@ -682,6 +686,8 @@ def insert(AVLTree, element, key):
     key = insertR(newNode, AVLTree.root)
   else:
     AVLTree.root = newNode
+    newNode.bf = 0
+    return key
   
   if key != None:
     updateBfAndFix(AVLTree, newNode)
@@ -692,6 +698,7 @@ def insert(AVLTree, element, key):
 Implementar la operación delete() en  el módulo avltree.py garantizando que el árbol 
 binario resultante sea un árbol AVL.
 """
+
 #Searchforelement y searchforminor buscan nodos utilizando recursividad que luego seran utilizados en la función delete
 def searchforelement(currentNode, element):
   
@@ -790,7 +797,7 @@ def delete(AVLTree, element):
           else:
             node.parent.leftnode = node.leftnode
             node.parent.leftnode.parent = node.parent
-    reBalance(AVLTree)
+    updateBfAndFix(AVLTree, node.parent)
     return node.key
   else:
     return None

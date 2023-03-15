@@ -20,7 +20,7 @@ print(A.root.leftnode.bf)
 print(A.root.leftnode.leftnode.bf)
 print(A.root.leftnode.leftnode.leftnode.bf)
 
-
+print("=========================")
 
 
 print("Rotacion derecha:")
@@ -35,6 +35,7 @@ print(A.root.leftnode.leftnode.rightnode)
 print(A.root.rightnode.leftnode)
 print(A.root.rightnode.rightnode.leftnode)
 
+print("=========================")
 
 print("Segundo calculateBalance")
 A = calculateBalance(A)
@@ -65,6 +66,9 @@ print(B.root.leftnode.leftnode.rightnode)
 print(B.root.rightnode.leftnode)
 print(B.root.rightnode.rightnode.leftnode)
 
+
+print("=========================")
+
 print("Rebalance arbol balanceado")
 C = AVLTree()
 insertAVL(C, 10, 10)
@@ -75,6 +79,7 @@ print(B.root.value)
 print(B.root.rightnode.value)
 print(B.root.leftnode.value)
 
+print("=========================")
 
 print("Prueba insert")
 D = AVLTree()
@@ -94,8 +99,10 @@ print(D.root.leftnode.leftnode.rightnode)
 print(D.root.rightnode.leftnode)
 print(D.root.rightnode.rightnode.leftnode)
 
+print(" ")
+print("=========================")
 
-print("Prueba delete")
+print("Prueba delete caso 1")
 E = AVLTree()
 insertAVL(E, 4, 4)
 
@@ -106,17 +113,47 @@ insertAVL(E, 15, 15)
 insertAVL(E, 2, 2)
 insertAVL(E, 1, 1)
 
-delete(E, 15)
-
+E = reBalance(E)
+print("Árbol")
 print(E.root.value)
 print(E.root.rightnode.value)
 print(E.root.rightnode.rightnode.value)
 print(E.root.leftnode.value)
 print(E.root.leftnode.leftnode.value)
-print(E.root.leftnode.rightnode)
-print(E.root.leftnode.leftnode.rightnode)
-print(E.root.rightnode.leftnode)
-print(E.root.rightnode.rightnode.leftnode)
+print(E.root.leftnode.rightnode.value)
+
+delete(E, 15)
+
+print("Delete del elemento 15")
+print(E.root.value)
+print(E.root.rightnode.value)
+print(E.root.rightnode.rightnode)
+print(E.root.leftnode.value)
+print(E.root.leftnode.leftnode.value)
+print(E.root.leftnode.rightnode.value)
+
+print("=========================")
+
+print("Prueba delete caso 1")
+Z = AVLTree()
+insert(Z, 4, 4)
+insert(Z, 3, 3)
+insert(Z, 10, 10)
+insert(Z, 2, 2)
+
+print("Arbol")
+print(Z.root.value)
+print(Z.root.rightnode.value)
+print(Z.root.leftnode.value)
+print(Z.root.leftnode.leftnode.value)
+
+delete(Z, 10)
+print("Delete del elemento 10")
+print(Z.root.value)
+print(Z.root.rightnode.value)
+print(Z.root.leftnode.value)
+
+print("=========================")
 
 print("CASO ESPECIAL DE ROTACION")
 
@@ -134,3 +171,25 @@ F = reBalance(F)
 print(F.root.value)
 print(F.root.rightnode.value)
 print(F.root.leftnode.value)
+
+print("=========================")
+
+
+print("CASO ESPECIAL DE ROTACION 2")
+
+X = AVLTree()
+insertAVL(X, -2, -2)
+insertAVL(X, -4, -4)
+insertAVL(X, -3, -3)
+
+print("Arbol sin balancear: ")
+print(X.root.value)
+print(X.root.leftnode.value)
+print(X.root.leftnode.rightnode.value)
+print("Arbol balanceado: ")
+X = reBalance(X)
+print(X.root.value)
+print(X.root.rightnode.value)
+print(X.root.leftnode.value)
+
+print("=========================")
