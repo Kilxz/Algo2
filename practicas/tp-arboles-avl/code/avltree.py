@@ -476,6 +476,7 @@ def update_bf(AVLTree, currentNode):
   else:
     update_bf(AVLTree, currentNode.parent)
 
+#Ejercicio 1
 """
 Descripción: Implementa la operación rotación a la izquierda 
 Entrada: Un Tree junto a un AVLnode sobre el cual se va a operar la rotación a la  izquierda
@@ -570,8 +571,6 @@ Entrada: El árbol AVL  sobre el cual se quiere operar.
 Salida: El árbol AVL con el valor de balanceFactor para cada subarbol
 
 """
-#Ejercicio 3
-
 def calculateBalance(AVLTree):
   return calculateBalanceR(AVLTree, AVLTree.root)
 
@@ -585,14 +584,19 @@ def calculateBalanceR(AVLTree, AVLNode):
   calculateBalanceR(AVLTree, AVLNode.rightnode)
   return AVLTree
 
+
+#Ejercicio 3
 """
 reBalance(AVLTree) 
-Descripción: balancea un árbol binario de búsqueda. Para esto se deberá primero calcular el balanceFactor del árbol y luego en función de esto aplicar la estrategia de rotación que corresponda.
+Descripción: balancea un árbol binario de búsqueda. Para esto se deberá primero 
+calcular el balanceFactor del árbol y luego en función de esto aplicar la estrategia de rotación que corresponda.
 Entrada: El árbol binario de tipo AVL  sobre el cual se quiere operar.
-Salida: Un árbol binario de búsqueda balanceado. Es decir luego de esta operación se cumple que la altura (h) de su subárbol derecho e izquierdo difieren a lo sumo en una unidad.
+Salida: Un árbol binario de búsqueda balanceado. Es decir luego de esta operación se cumple 
+que la altura (h) de su subárbol derecho e izquierdo difieren a lo sumo en una unidad.
 
 """
 
+#Se recorre el árbol verificando los bf
 def recorrerBf(AVLNode):
   
   if (AVLNode == None):
