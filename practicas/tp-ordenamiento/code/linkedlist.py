@@ -1,4 +1,3 @@
-from algo1 import *
 
 class LinkedList:
   head = None
@@ -218,6 +217,48 @@ def addatend(L, element):
       currentNode = currentNode.nextNode
 
 
+def swap(L, pos1, pos2):
+  if pos1 == pos2:
+    return None
+  len = length(L)
+
+  if pos1 > len or pos1 < 0:
+    return None
+  
+  if pos2 > len or pos2 < 0:
+    return None
+  currentNode1 = L.head
+  for i in range(0, pos1):
+    lastNode1 = currentNode1
+    currentNode1 = currentNode1.nextNode
+
+  currentNode2 = L.head
+  for i in range(0, pos2):
+    lastNode2 = currentNode2
+    currentNode2 = currentNode2.nextNode
+  
+  if pos1 == 0:
+    L.head = currentNode2
+    aux = currentNode2.nextNode
+    currentNode2.nextNode = currentNode1.nextNode
+    lastNode2.nextNode = currentNode1
+    currentNode1.nextNode = aux
+  else:
+    if pos2 == 0:
+      L.head = currentNode1
+      aux = currentNode1.nextNode
+      currentNode1.nextNode = currentNode2.nextNode
+      lastNode1.nextNode = currentNode2
+      currentNode2.nextNode = aux
+    else:
+      lastNode1.nextNode = currentNode2
+      aux = currentNode2.nextNode
+      currentNode2.nextNode = currentNode1.nextNode
+      lastNode2.nextNode = currentNode1
+      currentNode1.nextNode = aux
+
+  return L 
+  
 """
 
 def inversa(L):
