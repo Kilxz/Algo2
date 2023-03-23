@@ -1,9 +1,9 @@
 from linkedlist import *
 import math
 
-#Queda de complejidad O(n^2) ya que en la ultima parte. Hay un for que tiene dentro un swap. 
+#Queda de complejidad O(n^2) ya que en la 
+#ultima parte hay un for que tiene dentro un swap. 
 #Por lo que quedaria de n * n, es decir, n cuadrado
-
 def ordenamiento(L):
     if L.head == None:
         return None
