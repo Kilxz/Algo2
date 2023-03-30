@@ -43,9 +43,13 @@ def insertR(LastNode, L, element):
     if condition == None:
         TNode = TrieNode()
         TNode.key = element[0]
-        newList = []
+        
         TNode.parent = LastNode
-        TNode.children = newList
+        if len(element) == 1:
+            TNode.children = None
+        else:
+            newList = []
+            TNode.children = newList
         L.append(TNode)
     else:
         TNode = L[condition]
@@ -55,6 +59,9 @@ def insertR(LastNode, L, element):
         if condition == None:
             insertR(TNode, newList, element)
         else:
+            if TNode.children == None:
+                newList = []
+                TNode.children = newList
             insertR(L[condition], L[condition].children, element)
         return
     else:
