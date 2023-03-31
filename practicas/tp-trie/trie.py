@@ -29,7 +29,7 @@ def searchInL(L, element):
     return None
 
 def insert(T, element):
-    element = element.lower()
+
     if T.root == None:
         L = []
         T.root = L
@@ -84,3 +84,52 @@ def searchR(L, element):
             return True
         else:
             return False
+
+
+def searchForLastNode(T, element):
+    return searchForLastNodeR(T.root, element)
+
+def searchForLastNodeR(L, element):
+    condition = searchInL(L, element[0])
+    if condition == None:
+        return False
+    
+    if len(element) != 1:
+        element = element[1:]
+        return searchForLastNodeR(L[condition].children, element)
+    else:
+        if L[condition].isEndOfWord == True:
+            return L[condition]
+        else:
+            return False
+
+
+def delete(T, element):
+    condition = search(T, element)
+    if condition == False:
+        return False
+    finalNode = searchForLastNode(T, element)
+
+    return deleteR(T, finalNode, element)
+
+def deleteR(T, finalNode, element):
+
+    if finalNode.children != None:
+        finalNode.isEndOfWord = False
+        if finalNode.parent != T.root:
+            return deleteR(T, finalNode.parent, element)
+        else:
+            return True
+    else:
+        if finalNode.parent == T.root:
+            T.root.remove(finalNode)
+            return True
+        parentNode = finalNode.parent
+        parentList = parentNode.children
+        parentList.remove(finalNode)
+
+        if len(parentList) ==  0:
+            parentNode.children = None
+        return deleteR(T, finalNode.parent, element)
+        
+
