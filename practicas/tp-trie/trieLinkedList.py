@@ -1,4 +1,4 @@
-from linkedlist import *
+import linkedlist
 
 class Trie:
 	root = None
@@ -28,7 +28,7 @@ def searchInL(L, element):
 def insert(T, element):
     element = element.lower()
     if T.root == None:
-        L = LinkedList()
+        L = linkedlist.LinkedList()
         T.root = L
     else:
         L = T.root
@@ -44,9 +44,9 @@ def insertR(LastNode, L, element):
         if len(element) == 1:
             TNode.children = None
         else:
-            newList = LinkedList()
+            newList = linkedlist.LinkedList()
             TNode.children = newList
-        add(L, TNode)
+        linkedlist.add(L, TNode)
     else:
         TNode = condition
 
@@ -56,7 +56,7 @@ def insertR(LastNode, L, element):
             insertR(TNode, newList, element)
         else:
             if condition.children == None:
-                newList = LinkedList()
+                newList = linkedlist.LinkedList()
                 condition.children = newList
             insertR(condition, condition.children, element)
         return
@@ -81,3 +81,52 @@ def searchR(L, element):
             return True
         else:
             return False
+        
+
+
+def searchForLastNode(T, element):
+    return searchForLastNodeR(T.root, element)
+
+def searchForLastNodeR(L, element):
+    condition = searchInL(L, element[0])
+
+    if condition == None:
+        return False
+    
+    if len(element) != 1:
+        element = element[1:]
+        return searchForLastNodeR(condition.children, element)
+    else:
+        if condition.isEndOfWord == True:
+            return condition
+        else:
+            return False
+
+def delete(T, element):
+    condition = search(T, element)
+    if condition == False:
+        return False
+    finalNode = searchForLastNode(T, element)
+    finalNode.isEndOfWord = False
+    
+    return deleteR(T, finalNode, element)
+
+def deleteR(T, finalNode, element):
+
+    if finalNode.children != None:
+        finalNode.isEndOfWord = False
+        return True
+    else:
+        if finalNode.isEndOfWord == False:
+            if finalNode.parent == T.root:
+                linkedlist.delete(T.root, finalNode)
+                return True
+            parentNode = finalNode.parent
+            parentList = parentNode.children
+            linkedlist.delete(parentList, finalNode)
+
+            if linkedlist.length(parentList) ==  0:
+                parentNode.children = None
+            return deleteR(T, finalNode.parent, element)
+        else:
+            return True

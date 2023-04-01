@@ -72,6 +72,9 @@ def search(T, element):
     return searchR(T.root, element)
 
 def searchR(L, element):
+    if L == None:
+        return False
+    
     condition = searchInL(L, element[0])
     if condition == None:
         return False
@@ -109,27 +112,28 @@ def delete(T, element):
     if condition == False:
         return False
     finalNode = searchForLastNode(T, element)
-
+    finalNode.isEndOfWord = False
+    
     return deleteR(T, finalNode, element)
 
 def deleteR(T, finalNode, element):
 
     if finalNode.children != None:
         finalNode.isEndOfWord = False
-        if finalNode.parent != T.root:
+        return True
+    else:
+        if finalNode.isEndOfWord == False:
+            if finalNode.parent == T.root:
+                T.root.remove(finalNode)
+                return True
+            parentNode = finalNode.parent
+            parentList = parentNode.children
+            parentList.remove(finalNode)
+
+            if len(parentList) ==  0:
+                parentNode.children = None
             return deleteR(T, finalNode.parent, element)
         else:
             return True
-    else:
-        if finalNode.parent == T.root:
-            T.root.remove(finalNode)
-            return True
-        parentNode = finalNode.parent
-        parentList = parentNode.children
-        parentList.remove(finalNode)
 
-        if len(parentList) ==  0:
-            parentNode.children = None
-        return deleteR(T, finalNode.parent, element)
-        
 
