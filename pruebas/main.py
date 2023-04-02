@@ -30,3 +30,12 @@ def ImprimirLetra(T, letra):
         print("isEndOfWord?", inicio.isEndOfWord)
         inicio = inicio.children
     return
+
+hola = "hola"
+print(hola)
+hola = hola + "ad"
+print(hola)
+
+newList = []
+print(newList == None)
+print(newList == [])
