@@ -26,7 +26,7 @@ def searchInL(L, element):
 
 
 def insert(T, element):
-    element = element.lower()
+    
     if T.root == None:
         L = linkedlist.LinkedList()
         T.root = L
@@ -68,6 +68,9 @@ def search(T, element):
     return searchR(T.root, element)
 
 def searchR(L, element):
+    if L == None:
+        return False
+    
     condition = searchInL(L, element[0])
 
     if condition == None:

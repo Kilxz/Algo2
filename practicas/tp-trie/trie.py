@@ -8,19 +8,7 @@ class TrieNode:
     key = None
     isEndOfWord = False
 
-""" Busca en una LinkedList un element llamado element.
-La diferencia con la función ya implementada de LinkedList es que
-devolverá None si no existe o el nodo si ya existe.
-def searchInL(L, element):
-    if L.head == None:
-        return None
-    currentNode = L.head
-    while currentNode != None:
-        if currentNode.value.key == element:
-            return currentNode
-        currentNode = currentNode.nextnode
-    return None
-"""
+
 def searchInL(L, element):
     long = len(L)
     for i in range(0, long):
@@ -76,6 +64,7 @@ def searchR(L, element):
         return False
     
     condition = searchInL(L, element[0])
+    
     if condition == None:
         return False
     
