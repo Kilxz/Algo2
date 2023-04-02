@@ -1,4 +1,4 @@
-from mylinkedlist import *
+from linkedlist import *
 from algo1 import *
 
 class LinkedList:
