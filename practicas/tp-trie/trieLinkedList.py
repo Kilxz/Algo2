@@ -47,7 +47,7 @@ def insertR(LastNode, L, element):
         else:
             newList = linkedlist.LinkedList()
             TNode.children = newList
-        linkedlist.add(L, TNode)
+        linkedlist.addatend(L, TNode)
     else:
         TNode = condition
 
@@ -145,3 +145,40 @@ def deleteR(T, finalNode, element):
             return deleteR(T, finalNode.parent, element)
         else:
             return True
+        
+#Imprime todas las palabras de un trie que empiecen con la letra p y tengan n elementos.
+"""
+Se busca el nodo con la letra p en la lista apuntada por T.root. Luego, se crea una lista auxiliar donde se almacenarán las palabras.
+Se llama a imprimirR donde se recorre cada lista hija de todos los nodos empezando por el nodo de p. En cada llamada se concatena la letra al
+primer nodo de auxiliarList. A su vez, un contador se incrementa en cada llamado. Si cuando llega a n == cont, isEndOfWord == False, entonces el
+primer nodo de auxiliarList se elimina. También sucede lo mismo si cuando se está recorriendo el Trie, alguno de los children == None, sin haber llegado a n == cont. 
+Caso contrario, se devuelve la lista.
+"""
+def imprimir(T, p, n):
+    node = searchInL(T.root, p)
+    if node == None:
+        return None
+    auxiliarList = linkedlist.LinkedList()
+    lista = imprimirR(node, n, 1, auxiliarList)
+    linkedlist.printlist(lista)
+    
+def imprimirR(node, n, cont, auxiliarList):
+    if auxiliarList.head != None:
+        auxiliarList.head.value = auxiliarList.head.value + node.key
+
+    if n == cont:
+        if node.isEndOfWord == False:
+            linkedlist.pop(auxiliarList)
+        return auxiliarList
+    
+    if node.children == None:
+        linkedlist.pop(auxiliarList)
+        return auxiliarList
+    
+    currentNode = node.children.head
+    while currentNode != None:
+        if cont == 1:
+            linkedlist.add(auxiliarList, node.key)
+        imprimirR(currentNode.value, n, cont + 1, auxiliarList)
+        currentNode = currentNode.nextNode
+    return auxiliarList

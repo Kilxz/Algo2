@@ -141,4 +141,38 @@ def deleteR(T, finalNode, element):
         else:
             return True
 
+#Imprime todas las palabras de un trie que empiecen con la letra p y tengan n elementos.
+"""
+Se busca el nodo con la letra p en la lista apuntada por T.root. Luego, se crea una lista auxiliar donde se almacenarán las palabras.
+Se llama a imprimirR donde se recorre cada lista hija de todos los nodos empezando por el nodo de p. En cada llamada se concatena la letra al
+primer nodo de auxiliarList. A su vez, un contador se incrementa en cada llamado. Si cuando llega a n == cont, isEndOfWord == False, entonces el
+primer nodo de auxiliarList se elimina. También sucede lo mismo si cuando se está recorriendo el Trie, alguno de los children == None, sin haber llegado a n == cont. 
+Caso contrario, se devuelve la lista.
+"""
+def imprimir(T, p, n):
+    node = T.root[searchInL(T.root, p)]
+    if node == None:
+        return None
+    auxiliarList = []
+    lista = imprimirR(node, n, 1, auxiliarList)
+    print(lista)
+    
+def imprimirR(node, n, cont, auxiliarList):
+    if auxiliarList != []:
+        auxiliarList[0] = auxiliarList[0] + node.key
 
+    if n == cont:
+        if node.isEndOfWord == False:
+            auxiliarList.pop(0)
+        return auxiliarList
+    
+    if node.children == None:
+        auxiliarList.pop(0)
+        return auxiliarList
+    
+    for i in node.children:
+        if cont == 1:
+            auxiliarList.insert(0, node.key)
+        imprimirR(i, n, cont + 1, auxiliarList)
+
+    return auxiliarList

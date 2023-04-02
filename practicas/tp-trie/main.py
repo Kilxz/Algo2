@@ -1,5 +1,6 @@
 from trie import *
 import trieLinkedList
+import linkedlist
 
 T = Trie()
 
@@ -90,6 +91,19 @@ print(search(T, "lodo"))
 print("Encuentro lodoso?")
 print(search(T, "lodoso"))
 
+print(" ")
+print("=========== PRUEBA IMPRIMIR (PUNTO 4) =========== ")
+A = Trie()
+print("Inserto art, amo, ac, amor, acer")
+insert(A, "art")
+insert(A, "amo")
+insert(A, "ac")
+insert(A, "amor")
+insert(A, "acer")
+print("Imprimo palabras que empiecen con a y tengan una longitud de 3")
+imprimir(A, "a", 3)
+
+
 T = None
 T = Trie()
 
@@ -119,8 +133,9 @@ trieLinkedList.insert(T, "a")
 print("Inserto a")
 print(T.root.head.value.key)
 print(T.root.head.value.isEndOfWord)
+print(T.root.head.nextNode.value.key)
 print(T.root.head.nextNode.value.isEndOfWord)
-print(T.root.head.nextNode.value.children.head.value.isEndOfWord)
+
 
 print(" ")
 print("=========== PRUEBA search =========== ")
@@ -182,3 +197,16 @@ print("Encuentro lodo?")
 print(trieLinkedList.search(T, "lodo"))
 print("Encuentro lodoso?")
 print(trieLinkedList.search(T, "lodoso"))
+
+print(" ")
+print("=========== PRUEBA IMPRIMIR (PUNTO 4) =========== ")
+A = Trie()
+print("Inserto art, amo, ac, amor, acer")
+trieLinkedList.insert(A, "art")
+trieLinkedList.insert(A, "amo")
+trieLinkedList.insert(A, "ac")
+trieLinkedList.insert(A, "amor")
+trieLinkedList.insert(A, "acer")
+print("Imprimo palabras que empiecen con a y tengan una longitud de 3")
+trieLinkedList.imprimir(A, "a", 3)
+

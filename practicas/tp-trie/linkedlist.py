@@ -217,7 +217,20 @@ def addatend(L, element):
         return element
       currentNode = currentNode.nextNode
 
+def push(S, element):
+  add(S, element)
+  return element
 
+def pop(S):
+  if S.head != None:
+    currentNode = S.head.nextNode
+    element = S.head.value
+    S.head.nextNode = None
+    S.head = currentNode
+    return element
+  else:
+    return None
+  
 """
 
 def inversa(L):
