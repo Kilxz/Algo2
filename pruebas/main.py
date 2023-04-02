@@ -20,3 +20,13 @@ hola[1:]
 print(hola == "")
 print("asdcadasdas")
 print(hola)
+
+def ImprimirLetra(T, letra):
+    inicio = searchInL(letra)
+    print(inicio.key)
+    while inicio != None:
+        inicio = inicio.head.value
+        print(inicio.key)
+        print("isEndOfWord?", inicio.isEndOfWord)
+        inicio = inicio.children
+    return
