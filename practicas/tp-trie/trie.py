@@ -236,4 +236,20 @@ def equal(T1, T2):
             return areEqual
         areEqual = False
     return True
-        
+
+#Punto 6
+
+def invertidas(T):
+    if T.root == None:
+        return False
+    
+    auxList = getWords(T)
+
+def invertirString(L):
+    reversedList = []
+    for i in L:
+        reversa = ""
+        for j in len(i):
+            reversa = reversa + i[-j]
+        reversedList.insert(0, reversa)
+    return reversedList
