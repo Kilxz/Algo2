@@ -39,3 +39,8 @@ print(hola)
 newList = []
 print(newList == None)
 print(newList == [])
+
+
+L = ["hola", "chau"]
+L.insert(1, L[0])
+print(L)
