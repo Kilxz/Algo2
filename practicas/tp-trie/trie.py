@@ -176,3 +176,64 @@ def imprimirR(node, n, cont, auxiliarList):
         imprimirR(i, n, cont + 1, auxiliarList)
 
     return auxiliarList
+
+
+#Punto 5
+
+def getWords(T):
+    if T.root == None:
+        return None
+    else:
+        auxiliarList = []
+        for i in T.root:
+            auxiliarList = getWordsR(i, auxiliarList, 1)
+        return auxiliarList
+
+
+def getWordsR(node, auxiliarList, cont):
+    
+    if cont != 1:
+        auxiliarList[0] = auxiliarList[0] + node.key
+
+    if node.isEndOfWord == True:
+        if node.children == None:
+            return auxiliarList
+        else:
+            auxiliarList.insert(1, auxiliarList[0])
+    
+    if node.children == None:
+        return auxiliarList
+    
+    if cont != 1:
+        aux = auxiliarList[0]
+    j = 0
+    for i in node.children:
+        j = j + 1
+        if cont == 1:
+            auxiliarList.insert(0, node.key)
+        if j != 1:
+            auxiliarList.insert(0, aux)
+        auxiliarList = getWordsR(i, auxiliarList, cont + 1)
+    return auxiliarList
+    
+def equal(T1, T2):
+    list1 = getWords(T1)
+    list2 = getWords(T2)
+
+    if (list1 == None) or (list2 == None):
+        return False
+    
+    if (len(list1) != len(list2)):
+        return False
+    
+    areEqual = False
+    for i in list1:
+        elemento = i
+        for j in list2:
+            if elemento == j:
+                areEqual = True
+        if areEqual == False:
+            return areEqual
+        areEqual = False
+    return True
+        

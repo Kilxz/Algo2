@@ -182,3 +182,72 @@ def imprimirR(node, n, cont, auxiliarList):
         imprimirR(currentNode.value, n, cont + 1, auxiliarList)
         currentNode = currentNode.nextNode
     return auxiliarList
+
+#PUNTO 5
+
+def getWords(T):
+    if T.root == None:
+        return None
+    else:
+        auxiliarList = linkedlist.LinkedList()
+        currentNode = T.root.head
+        while currentNode != None:
+            auxiliarList = getWordsR(currentNode.value, auxiliarList, 1)
+            currentNode = currentNode.nextNode
+        return auxiliarList
+
+
+def getWordsR(node, auxiliarList, cont):
+    
+    if cont != 1:
+        auxiliarList.head.value = auxiliarList.head.value + node.key
+
+    if node.isEndOfWord == True:
+        if node.children == None:
+            return auxiliarList
+        else:
+            linkedlist.add(auxiliarList, auxiliarList.head.value)
+    
+    if node.children == None:
+        return auxiliarList
+    
+    if cont != 1:
+        aux = auxiliarList.head.value
+
+    j = 0
+    currentNode = node.children.head
+    while currentNode != None:
+        j = j + 1
+        if cont == 1:
+            linkedlist.add(auxiliarList, node.key)
+        if j != 1:
+            linkedlist.add(auxiliarList, aux)
+        auxiliarList = getWordsR(currentNode.value, auxiliarList, cont + 1)
+        currentNode = currentNode.nextNode
+    return auxiliarList
+    
+def equal(T1, T2):
+    list1 = getWords(T1)
+    list2 = getWords(T2)
+
+    if (list1.head == None) or (list2.head == None):
+        return False
+    
+    if (linkedlist.length(list1)) != (linkedlist.length(list2)):
+        return False
+    
+    areEqual = False
+    currentNode1 = list1.head
+    while currentNode1 != None:
+        elemento = currentNode1.value
+        currentNode2 = list2.head
+
+        while currentNode2 != None:
+            if elemento == currentNode2.value:
+                areEqual = True
+            currentNode2 = currentNode2.nextNode
+        if areEqual == False:
+            return areEqual
+        areEqual = False
+        currentNode1 = currentNode1.nextNode
+    return True

@@ -104,6 +104,47 @@ print("Imprimo palabras que empiecen con a y tengan una longitud de 3")
 imprimir(A, "a", 3)
 
 
+print(" ")
+print("=========== PRUEBA GETWORDS =========== ")
+L = Trie()
+K = Trie()
+O = Trie()
+I = Trie()
+P = Trie()
+listaaux = ["hola", "ho", "holas", "amigo", "amiga", "gato", "perro", "gat", "tema"]
+listaaux2 = ["tema", "gat", "perro", "gato", "amiga", "amigo", "holas", "ho", "hola"]
+listaaux3 = ["hola", "ho", "holas", "amigo", "amiga", "Gato", "perro", "gat", "tema"]
+listaaux4 = ["hola", "ho", "holas", "amigo", "amiga", "gatO", "perro", "gat", "tema"]
+listaaux5 = ["hola", "ho", "holas", "amigo", "amiga", "gatos", "perro", "gat", "tema"]
+for i in listaaux:
+    insert(L, i)
+for i in listaaux2:
+    insert(K, i)
+for i in listaaux3:
+    insert(O, i)
+for i in listaaux4:
+    insert(I, i)
+for i in listaaux5:
+    insert(P, i)
+B = getWords(L)
+print(B)
+
+print(" ")
+print("=========== PRUEBA PUNTO 5 equal(T) =========== ")
+print("Son iguales Trie L con K?")
+print(equal(L, K))
+print("Son iguales Trie L con O?")
+print(equal(L, O))
+print("Son iguales Trie L con I?")
+print(equal(I, L))
+print("Son iguales Trie L con P?")
+print(equal(P, L))
+
+L = None
+K = None
+O = None
+
+
 T = None
 T = Trie()
 
@@ -210,3 +251,38 @@ trieLinkedList.insert(A, "acer")
 print("Imprimo palabras que empiecen con a y tengan una longitud de 3")
 trieLinkedList.imprimir(A, "a", 3)
 
+print(" ")
+print("=========== PRUEBA GETWORDS =========== ")
+L = Trie()
+K = Trie()
+O = Trie()
+I = Trie()
+P = Trie()
+listaaux = ["hola", "ho", "holas", "amigo", "amiga", "gato", "perro", "gat", "tema"]
+listaaux2 = ["tema", "gat", "perro", "gato", "amiga", "amigo", "holas", "ho", "hola"]
+listaaux3 = ["hola", "ho", "holas", "amigo", "amiga", "Gato", "perro", "gat", "tema"]
+listaaux4 = ["hola", "ho", "holas", "amigo", "amiga", "gatO", "perro", "gat", "tema"]
+listaaux5 = ["hola", "ho", "holas", "amigo", "amiga", "gatos", "perro", "gat", "tema"]
+for i in listaaux:
+    trieLinkedList.insert(L, i)
+for i in listaaux2:
+    trieLinkedList.insert(K, i)
+for i in listaaux3:
+    trieLinkedList.insert(O, i)
+for i in listaaux4:
+    trieLinkedList.insert(I, i)
+for i in listaaux5:
+    trieLinkedList.insert(P, i)
+B = trieLinkedList.getWords(L)
+linkedlist.printlist(B)
+
+print(" ")
+print("=========== PRUEBA PUNTO 5 equal(T) =========== ")
+print("Son iguales Trie L con K?")
+print(trieLinkedList.equal(L, K))
+print("Son iguales Trie L con O?")
+print(trieLinkedList.equal(L, O))
+print("Son iguales Trie L con I?")
+print(trieLinkedList.equal(I, L))
+print("Son iguales Trie L con P?")
+print(trieLinkedList.equal(P, L))
