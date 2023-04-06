@@ -10,6 +10,8 @@ class TrieNode:
 
 #Busca en una lista si existe algún elemento con la key == element, si es así devuelve el índice
 def searchInL(L, element):
+    if L == None:
+        return None
     long = len(L)
     for i in range(0, long):
         if L[i].key == element:
@@ -149,16 +151,36 @@ primer nodo de auxiliarList. A su vez, un contador se incrementa en cada llamado
 primer nodo de auxiliarList se elimina. También sucede lo mismo si cuando se está recorriendo el Trie, alguno de los children == None, sin haber llegado a n == cont. 
 Caso contrario, se devuelve la lista.
 """
+
+def searchLastNodePattern(T, element):
+    return searchLastNodePatternR(T.root, element)
+
+def searchLastNodePatternR(L, element):
+    condition = searchInL(L, element[0])
+    if condition == None:
+        return False
+    
+    if len(element) != 1:
+        element = element[1:]
+        return searchLastNodePatternR(L[condition].children, element)
+    else:
+        return L[condition]
+    
+        
 def imprimir(T, p, n):
-    node = T.root[searchInL(T.root, p)]
-    if node == None:
+    node = searchLastNodePattern(T, p)
+    if node == False:
         return None
     auxiliarList = []
-    lista = imprimirR(node, n, 1, auxiliarList)
+    lenWord = len(p)
+    lista = imprimirR(node, p, n - lenWord + 1, 1, auxiliarList)
+
+    if lenWord == n:
+        lista.insert(0, p)
     print(lista)
     
-def imprimirR(node, n, cont, auxiliarList):
-    if auxiliarList != []:
+def imprimirR(node, p, n, cont, auxiliarList):
+    if cont != 1:
         auxiliarList[0] = auxiliarList[0] + node.key
 
     if n == cont:
@@ -170,11 +192,19 @@ def imprimirR(node, n, cont, auxiliarList):
         auxiliarList.pop(0)
         return auxiliarList
     
-    for i in node.children:
-        if cont == 1:
-            auxiliarList.insert(0, node.key)
-        imprimirR(i, n, cont + 1, auxiliarList)
+    if cont != 1:
+        aux = auxiliarList[0]
 
+    j = 0
+    for i in node.children:
+        j = j + 1
+        if cont == 1:
+            auxiliarList.insert(0, p)
+
+        if (j != 1) and (cont != 1):
+            auxiliarList.insert(0, aux)
+
+        imprimirR(i, p, n, cont + 1, auxiliarList)
     return auxiliarList
 
 

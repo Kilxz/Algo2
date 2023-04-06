@@ -154,16 +154,36 @@ primer nodo de auxiliarList. A su vez, un contador se incrementa en cada llamado
 primer nodo de auxiliarList se elimina. También sucede lo mismo si cuando se está recorriendo el Trie, alguno de los children == None, sin haber llegado a n == cont. 
 Caso contrario, se devuelve la lista.
 """
+
+def searchLastNodePattern(T, element):
+    return searchLastNodePatternR(T.root, element)
+
+def searchLastNodePatternR(L, element):
+    condition = searchInL(L, element[0])
+    if condition == None:
+        return False
+    
+    if len(element) != 1:
+        element = element[1:]
+        return searchLastNodePatternR(condition.children, element)
+    else:
+        return condition
+    
+
 def imprimir(T, p, n):
-    node = searchInL(T.root, p)
-    if node == None:
+    node = searchLastNodePattern(T, p)
+    if node == False:
         return None
     auxiliarList = linkedlist.LinkedList()
-    lista = imprimirR(node, n, 1, auxiliarList)
+    lenWord = len(p)
+    lista = imprimirR(node, p , n - lenWord + 1, 1, auxiliarList)
+
+    if lenWord == n:
+        linkedlist.add(auxiliarList, p)
     linkedlist.printlist(lista)
     
-def imprimirR(node, n, cont, auxiliarList):
-    if auxiliarList.head != None:
+def imprimirR(node, p, n, cont, auxiliarList):
+    if cont != 1:
         auxiliarList.head.value = auxiliarList.head.value + node.key
 
     if n == cont:
@@ -175,11 +195,19 @@ def imprimirR(node, n, cont, auxiliarList):
         linkedlist.pop(auxiliarList)
         return auxiliarList
     
+    if cont != 1:
+        aux = auxiliarList.head.value
+
+    j = 0
     currentNode = node.children.head
     while currentNode != None:
+        j = j + 1
         if cont == 1:
-            linkedlist.add(auxiliarList, node.key)
-        imprimirR(currentNode.value, n, cont + 1, auxiliarList)
+            linkedlist.add(auxiliarList, p)
+        if (j != 1) and (cont != 1):
+            linkedlist.add(auxiliarList, aux)
+
+        imprimirR(currentNode.value, p, n, cont + 1, auxiliarList)
         currentNode = currentNode.nextNode
     return auxiliarList
 
