@@ -127,7 +127,9 @@ for i in listaaux4:
 for i in listaaux5:
     insert(P, i)
 B = getWords(L)
+C = getWordsBackwards(L)
 print(B)
+print(C)
 
 print(" ")
 print("=========== PRUEBA PUNTO 5 equal(T) =========== ")
@@ -140,13 +142,19 @@ print(equal(I, L))
 print("Son iguales Trie L con P?")
 print(equal(P, L))
 
+print(" ")
+print("=========== PRUEBA PUNTO 6 invertidas(T) =========== ")
+print("Existen palabras invertidas en L?")
+print(invertidas(L))
+print("Inserto agima")
+insert(L, "agima")
+print("Existen palabras invertidas en L?")
+print(invertidas(L))
+T = None
+T = Trie()
 L = None
 K = None
 O = None
-
-
-T = None
-T = Trie()
 
 #CASOS DE PRUEBA PARA TRIE CON LINKEDLIST
 print(" ")
@@ -274,7 +282,9 @@ for i in listaaux4:
 for i in listaaux5:
     trieLinkedList.insert(P, i)
 B = trieLinkedList.getWords(L)
+C = trieLinkedList.getWordsBackwards(L)
 linkedlist.printlist(B)
+linkedlist.printlist(C)
 
 print(" ")
 print("=========== PRUEBA PUNTO 5 equal(T) =========== ")
@@ -286,3 +296,17 @@ print("Son iguales Trie L con I?")
 print(trieLinkedList.equal(I, L))
 print("Son iguales Trie L con P?")
 print(trieLinkedList.equal(P, L))
+
+print(" ")
+print("=========== PRUEBA PUNTO 6 invertidas(T) =========== ")
+print("Existen palabras invertidas en L?")
+print(trieLinkedList.invertidas(L))
+print("Inserto agima")
+trieLinkedList.insert(L, "agima")
+print("Existen palabras invertidas en L?")
+print(trieLinkedList.invertidas(L))
+T = None
+T = Trie()
+L = None
+K = None
+O = None

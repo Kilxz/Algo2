@@ -211,7 +211,7 @@ def getWordsR(node, auxiliarList, cont):
         j = j + 1
         if cont == 1:
             auxiliarList.insert(0, node.key)
-        if j != 1:
+        if (j != 1) and (cont != 1):
             auxiliarList.insert(0, aux)
         auxiliarList = getWordsR(i, auxiliarList, cont + 1)
     return auxiliarList
@@ -239,17 +239,54 @@ def equal(T1, T2):
 
 #Punto 6
 
+def getWordsBackwards(T):
+    if T.root == None:
+        return None
+    else:
+        auxiliarList = []
+        for i in T.root:
+            auxiliarList = getWordsBackwardsR(i, auxiliarList, 1)
+        return auxiliarList
+
+
+def getWordsBackwardsR(node, auxiliarList, cont):
+    
+    if cont != 1:
+        auxiliarList[0] = node.key + auxiliarList[0] 
+
+    if node.isEndOfWord == True:
+        if node.children == None:
+            return auxiliarList
+        else:
+            auxiliarList.insert(1, auxiliarList[0])
+    
+    if node.children == None:
+        return auxiliarList
+    
+    if cont != 1:
+        aux = auxiliarList[0]
+    j = 0
+    for i in node.children:
+        j = j + 1
+        if cont == 1:
+            auxiliarList.insert(0, node.key)
+        if (j != 1) and (cont != 1):
+            auxiliarList.insert(0, aux)
+        auxiliarList = getWordsBackwardsR(i, auxiliarList, cont + 1)
+    return auxiliarList
+
+
 def invertidas(T):
     if T.root == None:
         return False
     
-    auxList = getWords(T)
-
-def invertirString(L):
-    reversedList = []
-    for i in L:
-        reversa = ""
-        for j in len(i):
-            reversa = reversa + i[-j]
-        reversedList.insert(0, reversa)
-    return reversedList
+    list1 = getWords(T)
+    list2 = getWordsBackwards(T)
+    length = len(list1)
+    condition = False
+    for i in range(0, length):
+        element = list1[i]
+        for j in range(0, length):
+            if element == list2[j]:
+                return True
+    return False

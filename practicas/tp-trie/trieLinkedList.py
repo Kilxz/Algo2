@@ -220,7 +220,7 @@ def getWordsR(node, auxiliarList, cont):
         j = j + 1
         if cont == 1:
             linkedlist.add(auxiliarList, node.key)
-        if j != 1:
+        if (j != 1) and (cont != 1):
             linkedlist.add(auxiliarList, aux)
         auxiliarList = getWordsR(currentNode.value, auxiliarList, cont + 1)
         currentNode = currentNode.nextNode
@@ -251,3 +251,66 @@ def equal(T1, T2):
         areEqual = False
         currentNode1 = currentNode1.nextNode
     return True
+
+#Punto 6
+
+def getWordsBackwards(T):
+    if T.root == None:
+        return None
+    else:
+        auxiliarList = linkedlist.LinkedList()
+        currentNode = T.root.head
+        while currentNode != None:
+            auxiliarList = getWordsBackwardsR(currentNode.value, auxiliarList, 1)
+            currentNode = currentNode.nextNode
+        return auxiliarList
+
+
+def getWordsBackwardsR(node, auxiliarList, cont):
+    
+    if cont != 1:
+        auxiliarList.head.value = node.key + auxiliarList.head.value
+
+    if node.isEndOfWord == True:
+        if node.children == None:
+            return auxiliarList
+        else:
+            linkedlist.add(auxiliarList, auxiliarList.head.value)
+    
+    if node.children == None:
+        return auxiliarList
+    
+    if cont != 1:
+        aux = auxiliarList.head.value
+
+    j = 0
+    currentNode = node.children.head
+    while currentNode != None:
+        j = j + 1
+        if cont == 1:
+            linkedlist.add(auxiliarList, node.key)
+        if (j != 1) and (cont != 1):
+            linkedlist.add(auxiliarList, aux)
+        auxiliarList = getWordsBackwardsR(currentNode.value, auxiliarList, cont + 1)
+        currentNode = currentNode.nextNode
+    return auxiliarList
+    
+
+def invertidas(T):
+    if T.root == None:
+        return False
+    
+    list1 = getWords(T)
+    list2 = getWordsBackwards(T)
+    length = linkedlist.length(list1)
+    condition = False
+    currentNode = list1.head
+    while currentNode != None:
+        element = currentNode.value
+        currentNode2 = list2.head
+        while currentNode2 != None:
+            if element == currentNode2.value:
+                return True
+            currentNode2 = currentNode2.nextNode
+        currentNode = currentNode.nextNode
+    return False
