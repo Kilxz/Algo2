@@ -20,6 +20,7 @@ def searchInL(L, element):
         currentNode = currentNode.nextNode
     return None
 
+#Punto 1
 #Inserta un elemento en el Trie
 """
 Si la raíz es None, se crea una lista y se inserta como raíz. Luego, se van creando los nodos de cada letra, verificando
@@ -111,6 +112,7 @@ def searchForLastNodeR(L, element):
         else:
             return False
 
+#Punto 3
 #Elimina un elemento del Trie, si pudo borrarlo devuelve True, caso contrario, devuelve False
 """
 Se verifica que la palabra exista en el trie. Luego, mediante searchForLastNode se encuentra el último nodo
@@ -145,11 +147,12 @@ def deleteR(T, finalNode, element):
             return deleteR(T, finalNode.parent, element)
         else:
             return True
-        
-#Imprime todas las palabras de un trie que empiecen con la letra p y tengan n elementos.
+
+#Punto 4
+#Imprime todas las palabras de un trie que empiecen con el patrón p y tengan n elementos.
 """
-Se busca el nodo con la letra p en la lista apuntada por T.root. Luego, se crea una lista auxiliar donde se almacenarán las palabras.
-Se llama a imprimirR donde se recorre cada lista hija de todos los nodos empezando por el nodo de p. En cada llamada se concatena la letra al
+Se busca el último nodo (si existe) del árbol que empiece con el patrón p. Luego, se crea una lista auxiliar donde se almacenarán las palabras.
+Se llama a imprimirR donde se recorre cada lista hija de todos los nodos empezando por el nodo encontrado anteriormente. En cada llamada se concatena la letra al
 primer nodo de auxiliarList. A su vez, un contador se incrementa en cada llamado. Si cuando llega a n == cont, isEndOfWord == False, entonces el
 primer nodo de auxiliarList se elimina. También sucede lo mismo si cuando se está recorriendo el Trie, alguno de los children == None, sin haber llegado a n == cont. 
 Caso contrario, se devuelve la lista.
@@ -211,8 +214,17 @@ def imprimirR(node, p, n, cont, auxiliarList):
         currentNode = currentNode.nextNode
     return auxiliarList
 
-#PUNTO 5
+#Punto 5
+#Verifica que dos trie sean iguales.
+"""
+Se llama a la función getWords en ambos tries para almacenar todas las palabras de ambos en dos listas diferentes.
+getWords inicia recorriendo toda la lista de T.root, llamando dentro a getWordsR. Luego, se utiliza un funcionamiento parecido a la función imprimir.
+Es decir, se utiliza un contador mientras se recorre el Trie, si está en uno, se inserta en la lista auxiliar el node.key (ya que de ahi empieza la palabra) y se llama
+recursivamente a la función para ir concatenando las letras en el primer nodo de la lista auxiliar. Si algun nodo tiene isEndOfWord verdadero, entonces se retorna la lista o
+se clona la palabra para seguir recursivamente hacia abajo. Todo dependiendo si tiene node.children == None o no. Retorna la lista con todas las palabras del Trie.
 
+En Equal se comparan ambas listas auxiliares, si son iguales, retorna True, caso contrario, False
+"""
 def getWords(T):
     if T.root == None:
         return None
@@ -281,6 +293,14 @@ def equal(T1, T2):
     return True
 
 #Punto 6
+#Verifica que un Trie posea dos cadenas invertidas entre sí
+"""
+Se utiliza la función getWords (definida en el ejercicio anterior) y la función getWordsBackwards. En esencia es la misma función, sin
+embargo, cambia en la manera de concatenar la palabra, puesto que en esta nueva función se concatena al revés. Es decir:
+node.key + auxiliarList[0], pero, en esencia es el mismo funcionamiento. Al final tendremos una lista con las palabras del Trie
+normales y otra con las mismas palabras, pero escritas al revés. Posteriormente se busca si alguna palabra de la lista 1 se encuentra
+en la 2. Si esto ocurre, retorna True
+"""
 
 def getWordsBackwards(T):
     if T.root == None:
@@ -344,7 +364,12 @@ def invertidas(T):
     return False
 
 #Punto 7
-
+#Dada una cadena, devuelve lo que podría seguirle a esa cadena hasta que se encuentre con dos caminos diferentes.
+"""
+Utilizando la función del punto 4. Busca el último nodo (si existe) de un Trie dada una cadena específica. Se inicializa una string vacía
+y se llama a la función autoCompletarR con el nodo y la string. Dentro se concatenan las letras encontradas hasta que o el node.children sea
+None o hasta que la lista tenga más de un nodo. Se devuelve la palabra
+"""
 def autoCompletar(Trie, cadena):
     node = searchLastNodePattern(Trie, cadena)
     word = ""
@@ -353,7 +378,7 @@ def autoCompletar(Trie, cadena):
 def autoCompletarR(node, word):
     if node.children == None:
         return word
-    if linkedlist.length(node.children) != 1:
+    if node.children.head.nextNode != None:
         return word
     else:
         word = word + node.children.head.value.key

@@ -44,5 +44,6 @@ print(newList == [])
 L = ["hola", "chau"]
 L.insert(1, L[0])
 print(L)
-
+L = [1]
+print(L[1] != None)
 print(L[-1])
