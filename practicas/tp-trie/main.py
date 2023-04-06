@@ -157,11 +157,29 @@ print("Inserto agima")
 insert(L, "agima")
 print("Existen palabras invertidas en L?")
 print(invertidas(L))
+
+print(" ")
+print("=========== PRUEBA PUNTO 7 autoCompletar(Trie, cadena) =========== ")
+print("Inserto art, amo, ac, amor, amar, acer, am, amaste, a, terraria, terraza")
+insert(A, "terraza")
+insert(A, "terraria")
+print("autoComplentar amas")
+print(autoCompletar(A, "amas"))
+print("autoComplentar ac")
+print(autoCompletar(A, "ac"))
+print("autoComplentar acer")
+print(autoCompletar(A, "acer"))
+print("autoComplentar ar")
+print(autoCompletar(A, "ar"))
+print("autoComplentar t")
+print(autoCompletar(A, "t"))
+
 T = None
 T = Trie()
 L = None
 K = None
 O = None
+A = None
 
 #CASOS DE PRUEBA PARA TRIE CON LINKEDLIST
 print(" ")
@@ -320,6 +338,23 @@ print("Inserto agima")
 trieLinkedList.insert(L, "agima")
 print("Existen palabras invertidas en L?")
 print(trieLinkedList.invertidas(L))
+
+print(" ")
+print("=========== PRUEBA PUNTO 7 autoCompletar(Trie, cadena) =========== ")
+print("Inserto art, amo, ac, amor, amar, acer, am, amaste, a, terraria, terraza")
+trieLinkedList.insert(A, "terraza")
+trieLinkedList.insert(A, "terraria")
+print("autoComplentar amas")
+print(trieLinkedList.autoCompletar(A, "amas"))
+print("autoComplentar ac")
+print(trieLinkedList.autoCompletar(A, "ac"))
+print("autoComplentar acer")
+print(trieLinkedList.autoCompletar(A, "acer"))
+print("autoComplentar ar")
+print(trieLinkedList.autoCompletar(A, "ar"))
+print("autoComplentar t")
+print(trieLinkedList.autoCompletar(A, "t"))
+
 T = None
 T = Trie()
 L = None

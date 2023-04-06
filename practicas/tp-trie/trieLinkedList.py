@@ -342,3 +342,19 @@ def invertidas(T):
             currentNode2 = currentNode2.nextNode
         currentNode = currentNode.nextNode
     return False
+
+#Punto 7
+
+def autoCompletar(Trie, cadena):
+    node = searchLastNodePattern(Trie, cadena)
+    word = ""
+    return autoCompletarR(node, word)
+
+def autoCompletarR(node, word):
+    if node.children == None:
+        return word
+    if linkedlist.length(node.children) != 1:
+        return word
+    else:
+        word = word + node.children.head.value.key
+        return autoCompletarR(node.children.head.value, word)

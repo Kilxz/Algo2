@@ -320,3 +320,20 @@ def invertidas(T):
             if element == list2[j]:
                 return True
     return False
+
+#Punto 7
+
+def autoCompletar(Trie, cadena):
+    node = searchLastNodePattern(Trie, cadena)
+    word = ""
+    return autoCompletarR(node, word)
+
+def autoCompletarR(node, word):
+    if node.children == None:
+        return word
+    if len(node.children) != 1:
+        return word
+    else:
+        word = word + node.children[0].key
+        return autoCompletarR(node.children[0], word)
+    
