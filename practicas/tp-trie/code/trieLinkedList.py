@@ -9,7 +9,8 @@ class TrieNode:
     key = None
     isEndOfWord = False
 
-#Busca en una LinkedList un nodo con una key == element. Si la encuentre devuelve el TNode, caso contrario devuelve None
+#Busca en una LinkedList un nodo con una key == element. 
+#Si la encuentre devuelve el TNode, caso contrario devuelve None
 def searchInL(L, element):
     if L.head == None:
         return None
@@ -28,7 +29,6 @@ que no exista actualmente. En cada llamada se va cortando element (ya que se uti
 cuando la longitud de element es 1.
 """
 def insert(T, element):
-    
     if T.root == None:
         L = linkedlist.LinkedList()
         T.root = L
@@ -93,7 +93,8 @@ def searchR(L, element):
             return False
         
 
-#Función que busca un elemento en el Trie, si existe devuelve el último nodo correspondiente al elemento. Caso contrario, devuelve False
+#Función que busca un elemento en el Trie, si existe 
+#devuelve el último nodo correspondiente al elemento. Caso contrario, devuelve False
 def searchForLastNode(T, element):
     return searchForLastNodeR(T.root, element)
 
@@ -236,7 +237,6 @@ def getWords(T):
             currentNode = currentNode.nextNode
         return auxiliarList
 
-
 def getWordsR(node, auxiliarList, cont):
     
     if cont != 1:
@@ -313,7 +313,6 @@ def getWordsBackwards(T):
             currentNode = currentNode.nextNode
         return auxiliarList
 
-
 def getWordsBackwardsR(node, auxiliarList, cont):
     
     if cont != 1:
@@ -330,7 +329,6 @@ def getWordsBackwardsR(node, auxiliarList, cont):
     
     if cont != 1:
         aux = auxiliarList.head.value
-
     j = 0
     currentNode = node.children.head
     while currentNode != None:
@@ -350,8 +348,6 @@ def invertidas(T):
     
     list1 = getWords(T)
     list2 = getWordsBackwards(T)
-    length = linkedlist.length(list1)
-    condition = False
     currentNode = list1.head
     while currentNode != None:
         element = currentNode.value

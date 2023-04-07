@@ -333,7 +333,6 @@ def invertidas(T):
     list1 = getWords(T)
     list2 = getWordsBackwards(T)
     length = len(list1)
-    condition = False
     for i in range(0, length):
         element = list1[i]
         for j in range(0, length):
