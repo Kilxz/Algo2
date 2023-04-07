@@ -1,3 +1,4 @@
+import math
 """
 L = [1,2,3,4,5,6,7,8]
 
@@ -6,7 +7,7 @@ print(condition)
 
 for i in "hola":
     print(i)
-"""
+
 
 hola = "Holas"
 
@@ -44,6 +45,21 @@ print(newList == [])
 L = ["hola", "chau"]
 L.insert(1, L[0])
 print(L)
-L = [1]
-print(L[1] != None)
-print(L[-1])
+
+
+L = [5, 28, 19, 15, 20,  33, 12, 17, 10]
+
+for i in L:
+    print(i % 9)
+"""
+def hashMult(k, m, A):
+    return m * ((k * A) % 1)
+
+A = (math.sqrt(5) -1) / 2
+L = [61, 62, 63, 64, 65]
+m = 1000
+lista = []
+for i in L:
+    lista.append(hashMult(i, m, A))
+
+print(lista)
