@@ -48,7 +48,7 @@ def insertR(LastNode, L, element):
         else:
             newList = linkedlist.LinkedList()
             TNode.children = newList
-        linkedlist.addatend(L, TNode)
+        linkedlist.add(L, TNode)
     else:
         TNode = condition
 
