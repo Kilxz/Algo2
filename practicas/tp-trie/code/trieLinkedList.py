@@ -372,6 +372,9 @@ def autoCompletar(Trie, cadena):
     return autoCompletarR(node, word)
 
 def autoCompletarR(node, word):
+
+    if (node.isEndOfWord == True) and (word != ""):
+        return word
     if node.children == None:
         return word
     if node.children.head.nextNode != None:

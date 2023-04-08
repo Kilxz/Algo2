@@ -53,7 +53,7 @@ for i in L:
     print(i % 9)
 """
 def hashMult(k, m, A):
-    return m * ((k * A) % 1)
+    return m * ((k * (math.sqrt(5) -1) / 2) % 1)
 
 A = (math.sqrt(5) -1) / 2
 L = [61, 62, 63, 64, 65]
