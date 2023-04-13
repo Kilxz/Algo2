@@ -34,7 +34,7 @@ def search(D, key):
 def delete(D, key):
     k = hash(key, len(D))
     if D[k] == None:
-        return D
+        return None
     if D[k].head.value[0] == key:
         D[k].head = D[k].head.nextNode
         if D[k].head == None:
@@ -47,3 +47,19 @@ def delete(D, key):
             currentNode.nextNode = currentNode.nextNode.nextNode
             return D
         currentNode = currentNode.nextNode
+    return None
+
+def permutation(S, P):
+    if len(S) != len(P):
+        return False
+    
+    D = dictionary(ord("z") - ord("a"))
+    
+    for i in S:
+        key = ord(i) - ord("a")
+        insert(D, key, i)
+    for j in P:
+        key = ord(j) - ord("a")
+        if delete(D, key) == None:
+            return False
+    return True
