@@ -64,8 +64,23 @@ for i in L:
     lista.append(hashMult(i, m, A))
 
 print(lista)
-"""
+
 
 dict = Array(3, 0)
 
 print(dict[0])
+
+print(7 % 1)
+
+print(ord("a"))
+print(ord("A"))
+print(ord("z"))
+print(ord("Z"))
+print(ord("abc"))
+"""
+
+k = 61
+print(((k * (math.sqrt(5) -1) / 2) % 1))
+b = ((math.sqrt(5) -1) / 2) % 1
+print(k * b)
+print(b % 1)
