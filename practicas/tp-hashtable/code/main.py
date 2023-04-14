@@ -64,5 +64,101 @@ print("Permutacion 'cos' de 'osc'?")
 print(permutation("cos", "osc"))
 print("Permutacion 'sentados' de 'sodatnes'?")
 print(permutation("sentados", "sodatnes"))
-print("Permutacion 'sentados' de 'sodatnes'?")
+print("Permutacion 'sentados' de 'sodatene'?")
 print(permutation("sentados", "sodatene"))
+
+print(" ")
+print("-_-_-_-_-_- Prueba Ejercicio 5 -_-_-_-_-_-")
+
+aux = [1, 2, 3 , 4, 5, 6]
+aux2 = [1, 2, 3, 6 , 4, 5, 6]
+aux3 = [3, 3, 3, 3, 3, 3, 3 , 4, 5, 6]
+aux4 = [0, 1, 2, 3 , 4, 5, 6, 0]
+
+lista = linkedlist.LinkedList()
+for i in aux:
+    linkedlist.add(lista, i)
+
+print("Lista: ")
+linkedlist.printlist(lista)
+print("Sus elementos son únicos?")
+print(unicos(lista))
+lista = None
+lista = linkedlist.LinkedList()
+
+for i in aux2:
+    linkedlist.add(lista, i)
+
+print("Lista: ")
+linkedlist.printlist(lista)
+print("Sus elementos son únicos?")
+print(unicos(lista))
+lista = None
+lista = linkedlist.LinkedList()
+
+for i in aux3:
+    linkedlist.add(lista, i)
+
+print("Lista: ")
+linkedlist.printlist(lista)
+print("Sus elementos son únicos?")
+print(unicos(lista))
+lista = None
+lista = linkedlist.LinkedList()
+
+for i in aux4:
+    linkedlist.add(lista, i)
+
+print("Lista: ")
+linkedlist.printlist(lista)
+print("Sus elementos son únicos?")
+print(unicos(lista))
+lista = None
+lista = linkedlist.LinkedList()
+linkedlist.add(lista, 4)
+print("Lista: ")
+linkedlist.printlist(lista)
+print("Sus elementos son únicos?")
+print(unicos(lista))
+
+print(" ")
+print("-_-_-_-_-_- Prueba Ejercicio 7 -_-_-_-_-_-")
+print(compression("aaaaaaaabbbbsddddddpppp"))
+print(compression("aabbssddpp"))
+print(compression("aabbssddp"))
+
+print(" ")
+print("-_-_-_-_-_- Prueba Ejercicio 8 -_-_-_-_-_-")
+print(insideString("pepe", "parepepe"))
+print(insideString("pepe", "parepep"))
+print(insideString("pepe", "pepepare"))
+print(insideString("pepe", "papepere"))
+
+print(" ")
+print("-_-_-_-_-_- Prueba Ejercicio 9 -_-_-_-_-_-")
+s = linkedlist.LinkedList()
+t = linkedlist.LinkedList()
+o = linkedlist.LinkedList()
+linkedlist.add(o, 2)
+f = linkedlist.LinkedList()
+linkedlist.add(f, 11)
+for i in range(0, 11):
+    if (i > 3) and (i < 8):
+        linkedlist.add(s, i)
+    linkedlist.add(t, i)
+print("Lista S")
+linkedlist.printlist(s)
+print("Lista T")
+linkedlist.printlist(t)
+print("Lista O")
+linkedlist.printlist(o)
+print("Lista F")
+linkedlist.printlist(f)
+print("S subconjunto de T?")
+print(isSubset(s, t))
+print("O subconjunto de T?")
+print(isSubset(o, t))
+print("F subconjunto de T?")
+print(isSubset(f, t))
+print("T subconjunto de S?")
+print(isSubset(t, s))
