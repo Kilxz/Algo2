@@ -112,7 +112,7 @@ def hashMultiplicar(m, k):
 
 #Ejercicio 6
 def hashPostal(c, m):
-    k = 0
+    k = 1
     for i in range(1, 10):
         k = k * ord(c[i-1]) * i
     return k % m
@@ -137,6 +137,23 @@ def compression(string):
     for i in range(0, contadorFinal + 1):
         newString = newString + dict[i].head.value[1]
         newString = newString + str(linkedlist.length(dict[i]))
+    if len(newString) >= len(string):
+        return string
+    else:
+        return newString
+
+def compression2(string):
+    newString = ""
+    newString = newString + string[0]
+    contador = 1
+    for i in range(1, len(string)):
+        if string[i] == string[i-1]:
+            contador += 1
+        else:
+            newString = newString + str(contador)
+            newString = newString + string[i]
+            contador = 1
+    newString = newString + str(contador)
     if len(newString) >= len(string):
         return string
     else:
