@@ -77,10 +77,25 @@ print(ord("A"))
 print(ord("z"))
 print(ord("Z"))
 print(ord("abc"))
-"""
+
 
 k = 61
 print(((k * (math.sqrt(5) -1) / 2) % 1))
 b = ((math.sqrt(5) -1) / 2) % 1
 print(k * b)
 print(b % 1)
+
+
+s = "06:40:03AM"
+
+if "AM" in s:
+    print("24")
+print(str(int(s[0:2]) + 12) + s[2:8])
+
+"""
+
+a = [23, 23, 1,3, 4, 5]
+auxList = a
+
+auxList = [24]
+print(a)
