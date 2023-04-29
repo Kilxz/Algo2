@@ -55,9 +55,37 @@ def isConnected(Grafo):
     n = len(Grafo)
     for i in range(0, n-1):
         for j in range(i, n):
-            condition = existPath(i, j)
+            condition = existPath(Grafo, i, j)
             if condition == False:
                 return False
+    return True
+
+#Punto 4
+#Probable O(V a la cuarta)
+def isTree(Grafo):
+    if isConnected(Grafo) == False:
+        return False
+    n = len(Grafo)
+    for i in range(0, n):
+        currentNode = Grafo[i].head
+        while currentNode != None:
+            condition = isTreeR(Grafo, currentNode.value, i, i, currentNode.value)
+            if condition == False:
+                return False
+            currentNode = currentNode.nextNode
+    return True
+
+def isTreeR(Grafo, firstVertex, searchedVertex, lastVertex, nextVertex):
+    if firstVertex != nextVertex:
+        if linkedlist.search(Grafo[nextVertex], searchedVertex) != None:
+            return False
+    currentNode = Grafo[nextVertex].head
+    while currentNode != None:
+        if (lastVertex != currentNode.value):
+            condition = isTreeR(Grafo, firstVertex, searchedVertex, nextVertex, currentNode.value)
+            if condition == False:
+                return False
+        currentNode = currentNode.nextNode
     return True
 
 #Punto 5
@@ -68,3 +96,45 @@ def isComplete(Grafo):
         if (n-1) != linkedlist.length(Grafo[i]):
             return False
     return True
+
+#Punto 6
+"""
+def convertTree(Grafo)
+Descripción: Implementa la operación es convertir a árbol 
+Entrada: Grafo con la representación de Lista de Adyacencia.
+Salida: LinkedList de las aristas que se pueden eliminar y el grafo resultante se convierte en un árbol.
+"""
+def convertTree(Grafo):
+    return treeWithBfs(Grafo)
+
+"""
+W, G, B son abreviaciones para White, Gray y Black respectivamente. Utiliza el recorrido BFS para encontrar ciclos.
+"""
+def treeWithBfs(Grafo):
+    auxList = linkedlist.LinkedList()
+    n = len(Grafo)
+    for i in range(0, n):
+        node = linkedlist.Node()
+        node.value = "W"
+        node.nextNode = Grafo[i].head
+        Grafo[i].head = node
+    stack = linkedlist.LinkedList()
+    linkedlist.push(stack, 0)
+    currentNode = stack.head
+    while currentNode != None:
+        linkedlist.pop(stack)
+        Grafo[currentNode.value].head.value = "G"
+        currentNode2 = Grafo[currentNode.value].head.nextNode
+        while currentNode2 != None:
+            if Grafo[currentNode2.value].head.value == "W":
+                Grafo[currentNode2.value].head.value = "G"
+                linkedlist.push(stack, currentNode2.value)
+            else:
+                if Grafo[currentNode2.value].head.value == "G":
+                    linkedlist.add(auxList, (currentNode2.value, currentNode.value))
+            currentNode2 = currentNode2.nextNode
+        Grafo[currentNode.value].head.value = "B"
+        currentNode = stack.head
+    for i in range(0, n):
+        linkedlist.pop(Grafo[i])
+    return auxList

@@ -1,5 +1,6 @@
 import math
 from algo1 import *
+import linkedlist
 """
 L = [1,2,3,4,5,6,7,8]
 
@@ -92,10 +93,16 @@ if "AM" in s:
     print("24")
 print(str(int(s[0:2]) + 12) + s[2:8])
 
-"""
+
 
 a = [23, 23, 1,3, 4, 5]
 auxList = a
 
 auxList = [24]
 print(a)
+
+"""
+
+Grafo = Array(5, linkedlist.LinkedList())
+Grafo[0] = ("M", Grafo[0])
+print(Grafo[0])
