@@ -50,7 +50,7 @@ def existPathR(Grafo, List, auxList, v2):
     return False
 
 #Punto 3
-#Posible O(V a la cuarta)
+"""
 def isConnected(Grafo):
     n = len(Grafo)
     for i in range(0, n-1):
@@ -59,9 +59,76 @@ def isConnected(Grafo):
             if condition == False:
                 return False
     return True
+"""
+def isConnected(Grafo):
+    return isConnectedWithBfs(Grafo)
+def isConnectedWithBfs(Grafo):
+    n = len(Grafo)
+    for i in range(0, n):
+        node = linkedlist.Node()
+        node.value = "W"
+        node.nextNode = Grafo[i].head
+        Grafo[i].head = node
+    stack = linkedlist.LinkedList()
+    linkedlist.push(stack, 0)
+    currentNode = stack.head
+    while currentNode != None:
+        linkedlist.pop(stack)
+        Grafo[currentNode.value].head.value = "G"
+        currentNode2 = Grafo[currentNode.value].head.nextNode
+        while currentNode2 != None:
+            if Grafo[currentNode2.value].head.value == "W":
+                Grafo[currentNode2.value].head.value = "G"
+                linkedlist.push(stack, currentNode2.value)
+            currentNode2 = currentNode2.nextNode
+        Grafo[currentNode.value].head.value = "B"
+        currentNode = stack.head
+    condition = True
+    for i in range(0, n):
+        if Grafo[i].head.value == "W":
+            condition = False
+        linkedlist.pop(Grafo[i])
+    return condition
 
 #Punto 4
-#Probable O(V a la cuarta)
+def isTree(Grafo):
+    if isConnected(Grafo) == False:
+        return False
+    return isTreeWithBfs(Grafo)
+
+def isTreeWithBfs(Grafo):
+    n = len(Grafo)
+    for i in range(0, n):
+        node = linkedlist.Node()
+        node.value = "W"
+        node.nextNode = Grafo[i].head
+        Grafo[i].head = node
+    stack = linkedlist.LinkedList()
+    linkedlist.push(stack, 0)
+    currentNode = stack.head
+    condition = True
+    while currentNode != None:
+        linkedlist.pop(stack)
+        Grafo[currentNode.value].head.value = "G"
+        currentNode2 = Grafo[currentNode.value].head.nextNode
+        while currentNode2 != None:
+            if Grafo[currentNode2.value].head.value == "W":
+                Grafo[currentNode2.value].head.value = "G"
+                linkedlist.push(stack, currentNode2.value)
+            else:
+                if Grafo[currentNode2.value].head.value == "G":
+                    condition = False
+            currentNode2 = currentNode2.nextNode
+
+        if condition == True:
+            Grafo[currentNode.value].head.value = "B"
+            currentNode = stack.head
+        else:
+            break
+    for i in range(0, n):
+        linkedlist.pop(Grafo[i])
+    return condition
+"""
 def isTree(Grafo):
     if isConnected(Grafo) == False:
         return False
@@ -87,6 +154,9 @@ def isTreeR(Grafo, firstVertex, searchedVertex, lastVertex, nextVertex):
                 return False
         currentNode = currentNode.nextNode
     return True
+"""
+
+
 
 #Punto 5
 #O(V*V), podria mejorarse a O(V) con listas de python
