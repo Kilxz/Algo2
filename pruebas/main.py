@@ -104,5 +104,4 @@ print(a)
 """
 
 Grafo = Array(5, linkedlist.LinkedList())
-Grafo[0] = ("M", Grafo[0])
 print(Grafo[0])

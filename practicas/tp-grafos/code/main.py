@@ -105,3 +105,107 @@ print("Grafo M")
 linkedlist.printlist(convertTree(GrafoM))
 print("Grafo L")
 print(convertTree(GrafoL).head)
+
+print(" ")
+print("Prueba countConnections()")
+print("Grafo A")
+print(countConnections(GrafoA))
+print("Grafo B")
+print(countConnections(GrafoB))
+print("Grafo C")
+print(countConnections(GrafoC))
+print("Grafo D")
+print(countConnections(GrafoD))
+print("Grafo M")
+print(countConnections(GrafoM))
+print("Grafo L")
+print(countConnections(GrafoL))
+
+aristasB = linkedlist.LinkedList()
+verticesA = linkedlist.LinkedList()
+for i in range(0, 7):
+    linkedlist.add(verticesA, i)
+GrafoZ = createGraph(verticesA, aristasB)
+print("Grafo Z")
+print(countConnections(GrafoZ))
+
+print(" ")
+print("Prueba convertToBFSTree()")
+newGraphM2 = convertToBFSTree(GrafoM, 2)
+newGraphM3 = convertToBFSTree(GrafoM, 3)
+newGraphM0 = convertToBFSTree(GrafoM, 0)
+newGraphL0 = convertToBFSTree(GrafoL, 0)
+newGraphL1 = convertToBFSTree(GrafoL, 1)
+print("Grafo M - Vértice 2")
+for i in range(0, 4):
+    linkedlist.printlist(newGraphM2[i])
+print("Grafo M - Vértice 3")
+for i in range(0, 4):
+    linkedlist.printlist(newGraphM3[i])
+print("Grafo M - Vértice 0")
+for i in range(0, 4):
+    linkedlist.printlist(newGraphM0[i])
+print("Grafo L - Vértice 0")
+for i in range(0, 4):
+    linkedlist.printlist(newGraphL0[i])
+print("Grafo L - Vértice 1")
+for i in range(0, 4):
+    linkedlist.printlist(newGraphL0[i])
+newGraphM2 = None
+newGraphM3 = None
+newGraphM0 = None
+newGraphL0 = None
+newGraphL1 = None
+
+print(" ")
+print("Prueba convertToDFSTree()")
+ar = [(0, 1), (0, 2), (0, 3), (3, 2), (2, 1)]
+ar2 = linkedlist.LinkedList()
+for i in ar:
+    linkedlist.add(ar2, i)
+GrafoX = createGraph(V2linked, ar2)
+GrafoXD = convertToDFSTree(GrafoX, 0)
+GrafoXD2 = convertToDFSTree(GrafoX, 1)
+GrafoBD = convertToDFSTree(GrafoB, 0)
+GrafoBD2 = convertToDFSTree(GrafoB, 3)
+GrafoMD = convertToDFSTree(GrafoM, 0)
+GrafoMD2 = convertToDFSTree(GrafoM, 3)
+GrafoLD = convertToDFSTree(GrafoL, 0)
+GrafoLD2 = convertToDFSTree(GrafoL, 3)
+print("Grafo B - Vértice 0")
+
+for i in range(0, len(GrafoBD)):
+    linkedlist.printlist(GrafoBD[i])
+print("Grafo B - Vértice 3")
+for i in range(0, len(GrafoBD2)):
+    linkedlist.printlist(GrafoBD2[i])
+print("Grafo M - Vértice 0")
+for i in range(0, len(GrafoMD)):
+    linkedlist.printlist(GrafoMD[i])
+print("Grafo M - Vértice 3")
+for i in range(0, len(GrafoMD2)):
+    linkedlist.printlist(GrafoMD2[i])
+print("Grafo L - Vértice 0")
+for i in range(0, len(GrafoLD)):
+    linkedlist.printlist(GrafoLD[i])
+print("Grafo L - Vértice 3")
+for i in range(0, len(GrafoLD2)):
+    linkedlist.printlist(GrafoLD2[i])
+print("Grafo X - Vértice 0")
+for i in range(0, len(GrafoXD)):
+    linkedlist.printlist(GrafoXD[i])
+print("Grafo X - Vértice 1")
+for i in range(0, len(GrafoXD2)):
+    linkedlist.printlist(GrafoXD2[i])
+
+print(" ")
+print("Prueba bestRoad()")
+print("Grafo A - 0, 6")
+print(bestRoad(GrafoA, 0, 6))
+
+print("Grafo B - 0, 6")
+print(bestRoad(GrafoB, 0, 6))
+
+print("Grafo B - 6, 5")
+print(bestRoad(GrafoB, 6, 5))
+

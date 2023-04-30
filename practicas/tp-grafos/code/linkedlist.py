@@ -19,6 +19,7 @@ def printlist(L):
         print("]")
       currentNode = currentNode.nextNode
   else:
+    print(L.head)
     return None
     
 #O(1)
