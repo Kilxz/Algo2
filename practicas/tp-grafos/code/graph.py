@@ -29,6 +29,37 @@ Descripción: Implementa la operación existe camino que busca si existe un cami
 Entrada: Grafo con la representación de Lista de Adyacencia, v1 y v2 vértices en el grafo.
 Salida: retorna True si existe camino entre v1 y v2, False en caso contrario.
 """
+def existPath(Grafo, v1, v2):
+    n = len(Grafo)
+    for i in range(0, n):
+        node = linkedlist.Node()
+        node.value = "W"
+        node.nextNode = Grafo[i].head
+        Grafo[i].head = node
+    stack = linkedlist.LinkedList()
+    linkedlist.push(stack, v1)
+    currentNode = stack.head
+    condition = False
+    while currentNode != None:
+        linkedlist.pop(stack)
+        Grafo[currentNode.value].head.value = "G"
+        currentNode2 = Grafo[currentNode.value].head.nextNode
+        while currentNode2 != None:
+            if Grafo[currentNode2.value].head.value == "W":
+                Grafo[currentNode2.value].head.value = "G"
+                linkedlist.push(stack, currentNode2.value)
+            if currentNode2.value == v2:
+                condition = True
+                stack.head = None
+                break
+            currentNode2 = currentNode2.nextNode
+        Grafo[currentNode.value].head.value = "B"
+        currentNode = stack.head
+    for i in range(0, n):
+        linkedlist.pop(Grafo[i])
+    return condition
+
+"""
 #O(V al cuadrado) 
 def existPath(Grafo, v1, v2):
     auxList = [v1]
@@ -48,6 +79,7 @@ def existPathR(Grafo, List, auxList, v2):
             return condition
         currentNode = currentNode.nextNode
     return False
+"""
 
 #Punto 3
 """
