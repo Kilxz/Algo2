@@ -101,7 +101,116 @@ auxList = a
 auxList = [24]
 print(a)
 
-"""
+
 
 Grafo = Array(5, linkedlist.LinkedList())
 print(Grafo[0])
+def updateBf(T, node):
+    currentNode = node
+    if currentNode == T.root:
+        return T
+    if currentNode.bf < -1:
+        rotateLeft(T, currentNode)
+    else:
+        if currentNode.bf > 1:
+            rotateRight(T, currentNode)
+    return updateBf(T, node.parent)
+
+
+def createGraph(ListA, ListB):
+    n = linkedlist.length(ListA)
+    Graph = Array(n, linkedlist.LinkedList())
+    for i in range(0, n):
+        Graph[i] = linkedlist.LinkedList()
+
+    currentNode = ListB.head
+    while currentNode != None:
+        linkedlist.add(Graph[currentNode.value[0]], currentNode.value[1])
+        linkedlist.add(Graph[currentNode.value[1]], currentNode.value[0])
+        currentNode = currentNode.nextNode
+    return Graph
+v = [0,1,2,3,4,5]
+ar = [(1, 2), (2,3), (3, 4),(0, 4)]
+vertices = linkedlist.LinkedList()
+aristas = linkedlist.LinkedList()
+for i in v:
+    linkedlist.add(vertices, i)
+for i in ar:
+    linkedlist.add(aristas, i)
+
+Grafo = createGraph(vertices, aristas)
+def dfs(Grafo):
+    n = len(Grafo)
+    lista = []
+    for i in range(0, n):
+        newNode = linkedlist.Node()
+        newNode.value = "W"
+        newNode.nextNode = Grafo[i].head
+        Grafo[i].head = newNode
+    for i in range(0, n):
+        if Grafo[i].head.value == "W":
+            Grafo[i].head.value = "G" 
+            lista = dfsR(Grafo, i, lista)
+    for i in range(0, n):
+        linkedlist.pop(Grafo[i])
+    return lista
+def dfsR(Grafo, v, lista):
+    currentNode = Grafo[v].head.nextNode
+    while currentNode != None:
+        if Grafo[currentNode.value].head.value == "W":
+            lista.append((v, currentNode.value))
+            Grafo[currentNode.value].head.value = "G" 
+            lista = dfsR(Grafo, currentNode.value, lista)
+        currentNode = currentNode.nextNode
+    Grafo[v].head.value = "B"
+    return lista
+
+print(dfs(Grafo))
+
+
+def existPathWithdfs(Grafo, v1, v2):
+    n = len(Grafo)
+    for i in range(0, n):
+        newNode = linkedlist.Node()
+        newNode.value = "W"
+        newNode.nextNode = Grafo[i].head
+        Grafo[i].head = newNode
+
+    i = v1
+    if Grafo[i].head.value == "W":
+        Grafo[i].head.value = "G" 
+        lista = existPathWithdfsR(Grafo, i, v2)
+    for i in range(0, n):
+        linkedlist.pop(Grafo[i])
+    return lista
+
+def existPathWithdfsR(Grafo, v, v2):
+    currentNode = Grafo[v].head.nextNode
+    condition = False
+    while currentNode != None:
+        if currentNode.value == v2:
+            return True
+        if Grafo[currentNode.value].head.value == "W":
+            Grafo[currentNode.value].head.value = "G" 
+            condition = existPathWithdfsR(Grafo, currentNode.value, v2)
+            if condition == True:
+                return True
+        currentNode = currentNode.nextNode
+    Grafo[v].head.value = "B"
+    return condition
+
+print(existPathWithdfs(Grafo, 3, 5))
+print(existPathWithdfs(Grafo, 3, 4))
+print(existPathWithdfs(Grafo, 0, 4))
+
+aux = ""
+s = "holacomo"
+for i in range(1, len(s) + 1):
+    aux = aux + s[-i]
+print(aux)
+
+"""
+
+Q = [(1, 1), (0, 2), (3, 4)]
+Q.sort()
+print(Q)

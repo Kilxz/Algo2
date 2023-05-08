@@ -1,5 +1,10 @@
 from algo1 import *
 import linkedlist
+import math
+
+class vertex:
+    key = None
+    value = None
 
 #Punto 1
 """
@@ -414,3 +419,208 @@ def bestRoadR(Grafo, v2, auxList, lastVertex, Vertex):
                 return condition
         currentNode = currentNode.nextNode
     return False
+
+"""
+Crea un grafo ponderado mediante MATRIZ de adyacencia. En cada posición de la matriz se encuentra el respectivo 1 o 0 en una tupla, 
+junto a el valor de la arista.
+Forma: (0, valor)
+"""
+def createWeightedGraph(ListA, ListB):
+    n = linkedlist.length(ListA)
+    Graph = Array(n, Array(n, (0, 0)))
+    for i in range(0, n):
+        for j in range(0, n):
+            Graph[i][j] = (0,0)
+
+    currentNode = ListB.head
+    while currentNode != None:
+        Graph[currentNode.value[0]][currentNode.value[1]] = (1, currentNode.value[2])
+        Graph[currentNode.value[1]][currentNode.value[0]] = (1, currentNode.value[2])
+        currentNode = currentNode.nextNode
+    return Graph
+
+
+#Punto 14
+"""
+def PRIM(Grafo): 
+Descripción: Implementa el algoritmo de PRIM 
+Entrada: Grafo con la representación de Matriz de Adyacencia.
+Salida: retorna el árbol abarcador de costo mínimo
+
+Va añadiendo las aristas de los nodos a los que va visitando, en ese orden.
+En cada iteración inserta la arista de menor costo de esa lista, siempre y cuando
+el vértice no este en "visited".
+"""
+def PRIM(Graph):
+    Q = []
+    n = len(Graph)
+    newGraph = []
+    visited = [0]
+    Q = neighbourEdges(Graph, 0, Q, visited)
+    edge = 0
+    while (Q != []) and (len(newGraph) != (n-1)):
+        edge = getMinor(Q, visited)
+
+        if edge != None:
+            newGraph.append(edge)
+        else:
+            return newGraph
+        visited.append(edge[1])
+        Q = neighbourEdges(Graph, edge[1], Q, visited)
+    return newGraph
+
+def getMinor(Q, visited):
+    aux = None
+    store = []
+    print(Q)
+    for i in range(len(Q)):
+        if (Q[i][1] in visited):
+            store.append(i)
+    for i in store:
+        Q.pop(i)
+    for i in range(len(Q)):
+        if aux == None:
+                aux = i
+        else:
+            if Q[aux][2] > Q[i][2]:
+                aux = i
+    if aux == None:
+        return None
+    aux2 = Q[aux]
+    Q.pop(aux)
+    return aux2
+
+def neighbourEdges(Graph, v, Q, visited):
+    for i in range(0, len(Graph)):
+        if i not in visited:
+            if Graph[v][i][0] != 0:
+                Q.append((v, i, Graph[v][i][1]))
+    return Q
+
+#Punto 15
+"""
+def KRUSKAL(Grafo): 
+Descripción: Implementa el algoritmo de KRUSKAL 
+Entrada: Grafo con la representación de Matriz de Adyacencia.
+Salida: retorna el árbol abarcador de costo mínimo
+
+Agrega todas las aristas, las ordena con sort() y luego en orden las va agregando al AACM
+si se verifica que no se forma un ciclo (Mediante la función union explicada más abajo)
+"""
+def KRUSKAL(Graph):
+    edges = getEdges(Graph)
+    edges.sort()
+    newGraph = []
+    parent, contador = makeSet(len(Graph))
+    for i in edges:
+        if union(i[1], i[2], parent, contador) == True:
+            newGraph.append((i[1], i[2], i[0]))
+    return newGraph
+
+
+def getEdges(Graph):
+    edges = []
+    for i in range(0, len(Graph)):
+        for j in range(i, len(Graph)):
+            if Graph[i][j][0] != 0:
+                edges.append((Graph[i][j][1], i, j))
+    return edges
+
+
+#Extras
+"""
+Se usa para verificar los ciclos en KRUSKAL, crea varios conjuntos (al principio con cantidad de elementos igual a vértices) y
+los va uniendo en KRUSKAL.
+Si en un momento esos conjuntos están unidos, retorna false. Caso contrario, los une y retorna True
+contador es aproximadamente la altura de cada subárbol y se usa para más o menos intentar balancear el árbol que va quedando.
+"""
+def makeSet(n):
+    parent = []
+    contador = []
+    for i in range(n):
+        parent.append(i)
+        contador.append(0)
+    return parent, contador
+
+def find(x, parent):
+    if parent[x] != x:
+        parent[x] = find(parent[x], parent)
+    return parent[x]
+
+def union(x, y, parent, contador):
+    raizX = find(x, parent)
+    raizY = find(y, parent)
+    if raizX == raizY:
+        return False
+
+    if contador[raizX] < contador[raizY]:
+        parent[raizX] = raizY
+    elif contador[raizX] > contador[raizY]:
+        parent[raizY] = raizX
+    else:
+        parent[raizY] = raizX
+        contador[raizX] = contador[raizX] + 1
+    return True
+
+
+"""
+Proceso de PRIM FALLIDO
+def PRIM(Graph):
+    Q = []
+    newGraph = []
+    for i in range(len(Graph)):
+        node = vertex()
+        node.value = i
+        node.key = math.inf
+        Q.append(node)
+    edge = minEdge(Graph, 0, Q)
+    Q[0].key = edge[1]
+    while Q != []:
+        u = Q[0].value
+        edge = minEdge(Graph, Q[0].value, Q)
+        Q.pop(0)
+        if edge != None:
+            newGraph.append(edge)
+        for i in range(len(Graph)):
+            if Graph[u][i][0] != 0:
+                v = (i, Graph[u][i][1])
+                if edge != None:
+                    if i == edge[1]:
+                        v = (i, math.inf)
+                aux = None
+                for j in range(len(Q)):
+                    if (Q[j].value == v[0]) and Q[j].key > v[1]:
+                        aux = j
+                        Q[j].key = v[1]
+                        break
+                if aux != None:
+                    aux2 = Q[aux]
+                    Q.pop(aux)
+                    condition = False
+                    for k in range(len(Q)):
+                        if Q[k].key > aux2.key:
+                            condition = True
+                            Q.insert(k, aux2)
+                            break
+                    if condition == False:
+                        Q.append(aux2)
+    return newGraph
+
+def minEdge(Graph, vertex, Q):
+    aux = None
+    for i in range(0, len(Graph)):
+        if Graph[vertex][i][0] != 0:
+            for j in range(len(Q)):
+                if i == Q[j].value:
+                    if aux == None:
+                        aux = (vertex, i, Graph[vertex][i][1])
+                    else:
+                        if aux[2] > Graph[vertex][i][1]:
+                            aux = (vertex, i, Graph[vertex][i][1])
+                    break
+    if aux == None:
+        return None
+    else:
+        return aux
+    
+"""

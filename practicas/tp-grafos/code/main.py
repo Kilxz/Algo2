@@ -1,6 +1,12 @@
 import linkedlist
 from graph import *
 
+def imprimirmatriz(matriz, fila, columna):
+  for i in range(0, fila):
+    for j in range(0, columna):
+      print(matriz[i][j], end=" ")
+    print()
+
 V1 = linkedlist.LinkedList()
 A = linkedlist.LinkedList()
 
@@ -209,3 +215,62 @@ print(bestRoad(GrafoB, 0, 6))
 print("Grafo B - 6, 5")
 print(bestRoad(GrafoB, 6, 5))
 
+
+print(" ")
+print("Prueba KRUSKAL")
+vertices = [0,1,2,3]
+aristas = [(0, 1, 2), (0, 2, 1), (0, 3, 2), (3, 2, 4), (2, 1, 3)]
+list1 = linkedlist.LinkedList()
+list2 = linkedlist.LinkedList()
+for i in vertices:
+    linkedlist.add(list1, i)
+for i in aristas:
+    linkedlist.add(list2, i)
+
+Graph = createWeightedGraph(list1, list2)
+
+print("Grafo 1")
+print(KRUSKAL(Graph))
+
+vertices = [0,1,2,3,4,5]
+aristas = [(0, 1, 6), (0, 2, 1), (0, 3, 5), (1, 2, 5), (1, 4, 3), (2, 3, 5), (2, 4, 6), (2, 5, 4), (3, 5, 2), (4, 5, 6)]
+list1 = linkedlist.LinkedList()
+list2 = linkedlist.LinkedList()
+for i in vertices:
+    linkedlist.add(list1, i)
+for i in aristas:
+    linkedlist.add(list2, i)
+
+Graph = createWeightedGraph(list1, list2)
+print("Grafo 2")
+print(KRUSKAL(Graph))
+
+
+print(" ")
+print("Prueba PRIM")
+vertices = [0,1,2,3]
+aristas = [(0, 1, 2), (0, 2, 1), (0, 3, 2), (3, 2, 4), (2, 1, 3)]
+list1 = linkedlist.LinkedList()
+list2 = linkedlist.LinkedList()
+for i in vertices:
+    linkedlist.add(list1, i)
+for i in aristas:
+    linkedlist.add(list2, i)
+
+Graph = createWeightedGraph(list1, list2)
+
+print("Grafo 1")
+print(PRIM(Graph))
+
+vertices = [0,1,2,3,4,5]
+aristas = [(0, 1, 6), (0, 2, 1), (0, 3, 5), (1, 2, 5), (1, 4, 3), (2, 3, 5), (2, 4, 6), (2, 5, 4), (3, 5, 2), (4, 5, 6)]
+list1 = linkedlist.LinkedList()
+list2 = linkedlist.LinkedList()
+for i in vertices:
+    linkedlist.add(list1, i)
+for i in aristas:
+    linkedlist.add(list2, i)
+
+Graph = createWeightedGraph(list1, list2)
+print("Grafo 2")
+print(PRIM(Graph))
