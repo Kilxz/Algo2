@@ -515,7 +515,6 @@ def KRUSKAL(Graph):
             newGraph.append((i[1], i[2], i[0]))
     return newGraph
 
-
 def getEdges(Graph):
     edges = []
     for i in range(0, len(Graph)):
@@ -524,20 +523,11 @@ def getEdges(Graph):
                 edges.append((Graph[i][j][1], i, j))
     return edges
 
-#Punto 20
 """
-def shortestPath(Grafo, s, v): 
-Descripción: Implementa el algoritmo de Dijkstra
-Entrada: Grafo con la representación de Matriz de Adyacencia, vértice de inicio s y destino v.
-Salida: retorna la lista de los vértices que conforman el camino iniciando por s y terminando en v. Devolver NONE en caso que no exista camino entre s y v.
+Crea un árbol dirigido y ponderado dadas dos listas, la primera conteniendo los vértices y la segunda
+conteniendo las aristas y los pesos de la forma (u, v, peso) en una tupla.
+Representado por MATRIZ de adyacencia
 """
-def shortestPath(Grafo, s, v):
-    return dijkstra(Grafo, s, v)
-
-class dijVertex:
-    value = None
-    d = math.inf
-    pi = None
 
 def createWeightedGuidedGraph(ListA, ListB):
     n = linkedlist.length(ListA)
@@ -551,6 +541,24 @@ def createWeightedGuidedGraph(ListA, ListB):
         Graph[currentNode.value[0]][currentNode.value[1]] = (1, currentNode.value[2])
         currentNode = currentNode.nextNode
     return Graph
+
+#Punto 20
+"""
+def shortestPath(Grafo, s, v): 
+Descripción: Implementa el algoritmo de Dijkstra
+Entrada: Grafo con la representación de Matriz de Adyacencia, vértice de inicio s y destino v.
+Salida: retorna la lista de los vértices que conforman el camino iniciando por s y terminando en v. Devolver NONE en caso que no exista camino entre s y v.
+
+Usa relajación para todos los vértices, al final, se recorren todos los node.pi desde v (que contienen el antecesor), y
+se los va agregando a la lista hasta llegar a s. Dando como resultado el mínimo camino entre los dos vértices
+"""
+class dijVertex:
+    value = None
+    d = math.inf
+    pi = None
+
+def shortestPath(Grafo, s, v):
+    return dijkstra(Grafo, s, v)
 
 def initRelax(G, vertices, s):
     for i in range(len(G)):
