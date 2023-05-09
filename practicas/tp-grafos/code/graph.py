@@ -542,7 +542,7 @@ def createWeightedGuidedGraph(ListA, ListB):
         currentNode = currentNode.nextNode
     return Graph
 
-#Punto 20
+#Punto 21
 """
 def shortestPath(Grafo, s, v): 
 Descripción: Implementa el algoritmo de Dijkstra
