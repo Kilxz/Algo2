@@ -274,3 +274,17 @@ for i in aristas:
 Graph = createWeightedGraph(list1, list2)
 print("Grafo 2")
 print(PRIM(Graph))
+
+print(" ")
+print("Prueba Dijkstra o shortestPath")
+vertices = [0,1,2,3,4]
+aristas = [(0, 1, 1), (0, 2, 3), (1, 3, 5), (2, 3, 4), (3, 4, 1)]
+list1 = linkedlist.LinkedList()
+list2 = linkedlist.LinkedList()
+for i in vertices:
+    linkedlist.add(list1, i)
+for i in aristas:
+    linkedlist.add(list2, i)
+
+Graph = createWeightedGuidedGraph(list1, list2)
+print(shortestPath(Graph, 0, 3))

@@ -471,13 +471,11 @@ def PRIM(Graph):
 
 def getMinor(Q, visited):
     aux = None
-    store = []
-    print(Q)
-    for i in range(len(Q)):
-        if (Q[i][1] in visited):
-            store.append(i)
-    for i in store:
-        Q.pop(i)
+    cont = 0
+    while cont != len(Q):
+        if (Q[cont][1] in visited):
+            Q.pop(cont)
+        cont += 1
     for i in range(len(Q)):
         if aux == None:
                 aux = i
@@ -526,6 +524,89 @@ def getEdges(Graph):
                 edges.append((Graph[i][j][1], i, j))
     return edges
 
+#Punto 20
+"""
+def shortestPath(Grafo, s, v): 
+Descripción: Implementa el algoritmo de Dijkstra
+Entrada: Grafo con la representación de Matriz de Adyacencia, vértice de inicio s y destino v.
+Salida: retorna la lista de los vértices que conforman el camino iniciando por s y terminando en v. Devolver NONE en caso que no exista camino entre s y v.
+"""
+def shortestPath(Grafo, s, v):
+    return dijkstra(Grafo, s, v)
+
+class dijVertex:
+    value = None
+    d = math.inf
+    pi = None
+
+def createWeightedGuidedGraph(ListA, ListB):
+    n = linkedlist.length(ListA)
+    Graph = Array(n, Array(n, (0, 0)))
+    for i in range(0, n):
+        for j in range(0, n):
+            Graph[i][j] = (0,0)
+
+    currentNode = ListB.head
+    while currentNode != None:
+        Graph[currentNode.value[0]][currentNode.value[1]] = (1, currentNode.value[2])
+        currentNode = currentNode.nextNode
+    return Graph
+
+def initRelax(G, vertices, s):
+    for i in range(len(G)):
+        v = dijVertex()
+        v.value = i
+        vertices.append(v)
+    vertices[s].d = 0
+    vertices[s].pi = s
+    return vertices
+
+def relax(Graph, Q, vertices, u, v):
+    if vertices[v].d > vertices[u].d + Graph[u][v][1]:
+        vertices[v].d = vertices[u].d + Graph[u][v][1]
+        aux = vertices[u].d + Graph[u][v][1]
+        vertices[v].pi = u
+        for i in range(len(Q)):
+            if Q[i][0] == v:
+                aux2 = i
+        Q.pop(aux2)
+        if len(Q) == 0:
+            Q.insert(0, (v, vertices[u].d + Graph[u][v][1]))
+        else:
+            for i in range(len(Q)):
+                if aux <= Q[i][1]:
+                    Q.insert(i, (v, vertices[u].d + Graph[u][v][1]))
+                    break
+    return vertices, Q
+
+def dijkstra(Graph, s, v):
+    vertices = []
+    vertices = initRelax(Graph, vertices, s)
+    S = []
+    Q = []
+    Q.append((s, 0))
+    for i in range(1, len(Graph)):
+        if i != s:
+            Q.append((i, math.inf))
+    while len(Q) > 0:
+        u = Q.pop(0)
+        S.append(u)
+        for i in range(0, len(Graph)):
+            if Graph[u[0]][i][0] == 1:
+                if i not in S:
+                    vertices, Q = relax(Graph, Q, vertices, u[0], i)
+    aux = None
+    definitiveList = []
+    if vertices[v].pi != None:
+        definitiveList.append(v)
+    while aux != s:
+        aux = vertices[v].pi
+        if aux == None:
+            break
+        v = vertices[v].pi
+        definitiveList.insert(0, aux)
+    return definitiveList
+    
 
 #Extras
 """
