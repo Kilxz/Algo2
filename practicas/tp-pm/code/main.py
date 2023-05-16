@@ -1,0 +1,10 @@
+import pm
+print(pm.existChar("hola", "c"))
+print(pm.isPalindrome("hooh"))
+print(pm.getBiggestIslandLen("hhhhhhoola2222dd"))
+print(pm.isAnagram("holaaas", "aaasloh"))
+print(pm.isAnagram("holaaas", "aaasldh"))
+print(pm.verifyBalancedParentheses("())()()()()"))
+print(pm.verifyBalancedParentheses("()()()()()"))
+print(pm.verifyBalancedParentheses(")()()()()()"))
+print(pm.verifyBalancedParentheses("(()()()()())"))
