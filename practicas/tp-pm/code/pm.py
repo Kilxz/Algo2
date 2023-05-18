@@ -55,3 +55,27 @@ def verifyBalancedParentheses(String):
         return True
     else:
         return False
+    
+def reduceLen(String):
+    n = len(String)
+    newString = ""
+    aux = String[0]
+    for i in range(1, n):
+        if String[i] != aux:
+            if aux is not None:
+                newString = newString + aux
+            aux = String[i]
+            if i == n-1:
+                newString = newString + String[i]
+        else:
+            aux = None
+    return newString
+
+def isContained(String, String2):
+    n = len(String)
+    for i in range(0, n):
+        if String[i] == String2[0]:
+            String2 = String2[1:]
+            if String2 == "":
+                return True
+    return False
