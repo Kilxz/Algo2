@@ -79,3 +79,35 @@ def isContained(String, String2):
             if String2 == "":
                 return True
     return False
+
+def isPatternContained(String, String2, c):
+    n = len(String)
+    for i in range(0, n):
+        if String[i] == String2[0]:
+            String2 = String2[1:]
+        elif String2[0] == c:
+            String2 = String2[1:]
+        
+        if String2 == "":
+            return True
+    return False
+
+
+"""
+Crea la lista pi, el primer elemento es 0. Luego en el for
+comienza comparando el primer elemento con el segundo, si son iguales
+se le coloca k + 1 al elemento i. Luego de eso se sigue comparando el elemento P[k+1] con el P[i]. Si k es
+mayor que 0 y el elemento P[k] es diferente del elemento P[i] entonces dentro del while k vuelve a ser 0.
+"""
+def kmp(P):
+    m = len(P)
+    pi = [0] * m
+    pi[0] = 0
+    k = 0
+    for i in range (1, m):
+        while k > 0 and P[k] != P[i]:
+            k = pi[k-1]
+        if P[k] == P[i]:
+            k = k + 1
+        pi[i] = k
+    return pi

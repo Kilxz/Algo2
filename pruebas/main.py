@@ -210,14 +210,6 @@ for i in range(1, len(s) + 1):
 print(aux)
 
 """
-
-Q = [(1, 1), (0, 2), (3, 4)]
-Q.sort()
-print(Q)
-
-n = "hola"
-for i in range(0, len(n)):
-    n = n[1:]
-    print(n)
-print("last")
-print(n)
+m = 5
+pi = [None] * m
+print(pi)
