@@ -1,4 +1,6 @@
 import dictionary
+from algo1 import *
+
 #O(n)
 def existChar(String, c):
     for i in range(len(String)):
@@ -99,7 +101,7 @@ comienza comparando el primer elemento con el segundo, si son iguales
 se le coloca k + 1 al elemento i. Luego de eso se sigue comparando el elemento P[k+1] con el P[i]. Si k es
 mayor que 0 y el elemento P[k] es diferente del elemento P[i] entonces dentro del while k vuelve a ser 0.
 """
-def kmp(P):
+def kmp2(P):
     m = len(P)
     pi = [0] * m
     pi[0] = 0
@@ -111,3 +113,95 @@ def kmp(P):
             k = k + 1
         pi[i] = k
     return pi
+
+def biggestPrefix(T, P):
+    m = len(P)
+    n = len(T)
+    pi = kmp2(P)
+    k = 0
+    maxK = 0
+    for i in range(0, n):
+        while k > 0 and T[i] != P[k]:
+            k = pi[k]
+        if T[i] == P[k]:
+            k = k + 1
+        if k > maxK:
+            maxK = k
+        if k == m:
+            return P
+            k = pi[k]
+    return P[0:maxK]
+
+def computeTransitionFunction(P, alphabet):
+    n = len(P) + 1
+    matrix = [[0] * len(alphabet) for i in range(n)]
+    for i in range(0, n):
+        for j in range(0, len(alphabet)):
+            k = min(n + 1, i + 1)
+            while k > 0 and suffix(P[:k], P[:i] + alphabet[j]) == False:
+                k = k - 1
+            matrix[i][j] = k
+    return matrix
+
+def finiteAutomatonMatcher(T, P):
+    n = len(T)
+    m = len(P)
+    alphabet = []
+    for i in P:
+        if i not in alphabet:
+            alphabet.append(i)
+    d = computeTransitionFunction(P, alphabet)
+    q = 0
+    for i in range(0, n):
+        if T[i] in alphabet:
+            k = alphabet.index(T[i])
+            q = d[q][k]
+        else:
+            q = 0
+        if q == m:
+            return True
+    return False
+
+def suffix(S1, S2):
+    n = len(S2)
+    m = len(S1)
+    if S2[n-m:] == S1:
+        condition = True
+    else:
+        condition = False
+    return condition
+
+def rabinKarp(T, P):
+    completar = 2
+
+def computePrefixFunction(P):
+    m = len(P)
+    pi = [0] * m
+    pi[0] = 0
+    k = 0
+    for i in range (1, m):
+        while k > 0 and P[k] != P[i]:
+            k = pi[k-1]
+        if P[k] == P[i]:
+            k = k + 1
+        pi[i] = k
+    return pi
+
+def KMP(T, P):
+    m = len(P)
+    n = len(T)
+    pi = kmp2(P)
+    k = 0
+    list = []
+    for i in range(0, n):
+        while k > 0 and T[i] != P[k]:
+            list.pop(0)
+            k = pi[k]
+        if T[i] == P[k]:
+            list.append(i)
+            k = k + 1
+        if k == m:
+            k = pi[k]
+            return list
+            
+    return False

@@ -213,3 +213,22 @@ print(aux)
 m = 5
 pi = [None] * m
 print(pi)
+n = 7
+alphabet = 3
+columna = 3
+fila = 7
+matrix = [[0] * columna for i in range(fila)]
+print(matrix)
+matrix[2][0] = 5
+print(matrix)
+
+def suffix(S1, S2):
+    n = len(S2)
+    m = len(S1)    
+    if S2[n-m:] == S1:
+        condition = True
+    else:
+        condition = False
+    return condition
+
+print(suffix("hola", "mcmadshola"))
