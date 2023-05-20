@@ -172,7 +172,30 @@ def suffix(S1, S2):
     return condition
 
 def rabinKarp(T, P):
-    completar = 2
+    n = len(T)
+    m = len(P)
+    hp = hash(P, None, None)
+    ts = None
+    firstChar = None
+    for i in range(0, n - m + 1):
+        string = T[i: i + len(P)]
+        ts = hash(string, ts, firstChar)
+        firstChar = T[i]
+        if ts == hp:
+            if string == P:
+                return True
+    return False
+        
+def hash(ST, key, firstChar):
+    n = len(ST)
+    if key == None:
+        hashKey = 0
+        for i in range(0, n):
+            hashKey = hashKey + ((10 ** (n- 1 - i)) * ord(ST[i]))
+    else:
+        hashKey = 10 * (key - ((10 ** (n-1) )* ord(firstChar))) + ord(ST[n-1])
+    return hashKey
+    
 
 def computePrefixFunction(P):
     m = len(P)
@@ -201,7 +224,6 @@ def KMP(T, P):
             list.append(i)
             k = k + 1
         if k == m:
-            k = pi[k]
             return list
-            
+            k = pi[k]
     return False
